@@ -1,8 +1,8 @@
 {
   "name": "mobile",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Eulier González",
+  "homepage": "https://bitbucket.org/galvintec/sga-app-logistica-krack/src",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -55,5 +55,5 @@
     "tslint": "~5.12.0",
     "typescript": "~3.1.6"
   },
-  "description": "An Ionic project"
+  "description": "SGA + App Logística Krack"
 }
