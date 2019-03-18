@@ -1,0 +1,16 @@
+{
+  "name": "sga-app-logistica-krack",
+  "version": "0.0.1",
+  "author": "Eulier González",
+  "homepage": "https://bitbucket.org/galvintec/sga-app-logistica-krack/src",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "private": true,
+  "description": "SGA + App Logística Krack"
+}

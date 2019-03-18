@@ -1,0 +1,18 @@
+{
+  "defaultProject": "mobile",
+  "projects": {
+    "mobile": {
+      "name": "mobile",
+      "integrations": {},
+      "type": "angular",
+      "root": "apps/mobile",
+      "id": "da3a39c1"
+    },
+    "sga": {
+      "name": "sga",
+      "integrations": {},
+      "type": "angular",
+      "root": "apps/sga"
+    }
+  }
+}
