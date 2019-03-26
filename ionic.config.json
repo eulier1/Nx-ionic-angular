@@ -3,7 +3,7 @@
   "projects": {
     "mobile": {
       "name": "mobile",
-      "integrations": {},
+      "integrations": { "cordova": ["cordova-sqlite-storage"] },
       "type": "angular",
       "root": "apps/mobile",
       "id": "da3a39c1"
@@ -14,5 +14,8 @@
       "type": "angular",
       "root": "apps/sga"
     }
+  },
+  "integrations": {
+    "cordova": {}
   }
 }
