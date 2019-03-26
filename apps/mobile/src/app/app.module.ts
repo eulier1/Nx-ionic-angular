@@ -10,7 +10,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { LoginService } from './api/login.service';
+import { IonicStorageModule } from '@ionic/storage';
+
+import { LoginService } from './services/login.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +21,7 @@ import { LoginService } from './api/login.service';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
+    IonicStorageModule.forRoot(),
     AppRoutingModule
   ],
   providers: [

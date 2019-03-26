@@ -48,8 +48,8 @@ export class LoginService {
     });
   }
 
-  get_logout(): Observable<HttpResponse<ResponseLogout>> {
-    const authType = `Bearer ${ACCESS_TOKEN_LOGOUT}`;
+  get_logout(currentAccessToken): Observable<HttpResponse<ResponseLogout>> {
+    const authType = `${currentAccessToken}`;
     const headers = new HttpHeaders(this._headers(authType));
 
     return this.http.get<ResponseLogout>(PATH_GET_LOGOUT, {
