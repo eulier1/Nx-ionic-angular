@@ -782,6 +782,38 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"me"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -808,14 +840,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/api/user/{{pid}}/roles",
+							"raw": "{{url}}/api/users/1/roles",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"user",
-								"{{pid}}",
+								"users",
+								"1",
 								"roles"
 							]
 						}
@@ -832,13 +864,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/api/role/{{rid}}/permissions",
+							"raw": "{{url}}/api/roles/{{rid}}/permissions",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"role",
+								"roles",
 								"{{rid}}",
 								"permissions"
 							]

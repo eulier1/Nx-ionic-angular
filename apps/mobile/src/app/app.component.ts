@@ -11,13 +11,22 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { LoginService } from './api/login.service';
+import { HttpResponse } from '@angular/common/http';
+import { ResponseLogout } from '../../../../shared_modules/models/endpoints/OAuth2';
+
+interface MenuItem {
+  title: string;
+  url: string;
+  icon: string;
+}
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
-  public appPages = [
+  public appPages: MenuItem[] = [
     {
       title: 'Home',
       url: '/home',
@@ -44,7 +53,8 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private menu: MenuController
+    private menu: MenuController,
+    private loginService: LoginService
   ) {
     this.initializeApp();
     this.menu.enable(true, 'sidebar');
@@ -87,5 +97,16 @@ export class AppComponent implements OnInit {
         this.menu.enable(true, 'sidebar');
       }
     });
+  }
+
+  tapOption(p: MenuItem) {
+    console.log(p);
+    if (p.title === 'Logout') {
+      this.loginService
+        .get_logout()
+        .subscribe((data: HttpResponse<ResponseLogout>) => {
+          console.log(data.body.data.msg);
+        });
+    }
   }
 }
