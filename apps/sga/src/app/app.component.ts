@@ -11,13 +11,23 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { LoginService } from './services/login.service';
+import { HttpResponse } from '@angular/common/http';
+import { ResponseLogout } from '../../../../shared_modules/models/endpoints/OAuth2';
+import { AuthenticationService } from './services/authentication.service';
+
+interface MenuItem {
+  title: string;
+  url: string;
+  icon: string;
+}
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
-  public appPages = [
+  public appPages: MenuItem[] = [
     {
       title: 'Home',
       url: '/home',
@@ -30,7 +40,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Logout',
-      url: '/login',
+      url: '/home',
       icon: 'log-out'
     }
   ];
@@ -44,48 +54,45 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private menu: MenuController
+    private menu: MenuController,
+    private loginService: LoginService,
+    private authenticationService: AuthenticationService
   ) {
     this.initializeApp();
-    this.menu.enable(true, 'sidebar');
-    // Create a new Observable that publish
-    // NavigationStart, ResolveStart, ResolveEnd
-    this.navStart = router.events.pipe(
-      filter(evt => evt instanceof NavigationStart)
-    ) as Observable<NavigationStart>;
-    this.navResStart = router.events.pipe(
-      filter(evt => evt instanceof ResolveStart)
-    ) as Observable<ResolveStart>;
-    this.navResEnd = router.events.pipe(
-      filter(evt => evt instanceof ResolveEnd)
-    ) as Observable<ResolveEnd>;
+    this.menu.enable(false, 'sidebar');
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      /* Check for Authenticated user */
+      this.authenticationService.authenticationState.subscribe(state => {
+        if (state) {
+          this.router.navigate(['home']);
+          this.menu.enable(true, 'sidebar');
+        } else {
+          this.router.navigate(['login']);
+          this.menu.enable(false, 'sidebar');
+        }
+      });
     });
   }
 
-  ngOnInit() {
-    this.navStart.subscribe(evt => {
-      console.log('navStart', evt);
-      if (evt.url === '/login') {
-        this.menu.enable(false, 'sidebar');
-      }
-    });
-    this.navResStart.subscribe(evt => {
-      console.log('navResStart', evt);
-      if (evt.url === '/login') {
-        this.menu.enable(false, 'sidebar');
-      }
-    });
-    this.navResEnd.subscribe(evt => {
-      console.log('navResEnd', evt);
-      if (evt.url !== '/login') {
-        this.menu.enable(true, 'sidebar');
-      }
-    });
+  ngOnInit() {}
+
+  tapOption(p: MenuItem) {
+    console.log(p);
+    if (p.title === 'Logout') {
+      this.authenticationService.getCurrentToken().then(accessToken => {
+        this.loginService
+          .get_logout(accessToken)
+          .subscribe((data: HttpResponse<ResponseLogout>) => {
+            this.authenticationService.logout();
+            console.log(data.body.data.msg);
+          });
+      });
+    }
   }
 }

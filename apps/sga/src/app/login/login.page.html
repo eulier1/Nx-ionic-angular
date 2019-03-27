@@ -20,6 +20,9 @@
             ><ion-input
               placeholder="Nombre"
               class="ion-margin-horizontal"
+              [(ngModel)]="user.username"
+              type="email"
+              email
             ></ion-input>
           </ion-item>
         </div>
@@ -31,8 +34,29 @@
             <ion-input
               placeholder="Contraseña"
               class="ion-margin-horizontal"
+              [(ngModel)]="user.password"
+              type="password"
+              #passwordInput
             ></ion-input>
-            <ion-icon name="eye"></ion-icon>
+            <ion-icon
+              *ngIf="passwordInput.type === 'password'"
+              name="eye"
+              (click)="
+                passwordInput.type === 'password'
+                  ? (passwordInput.type = 'text')
+                  : (passwordInput.type = 'password')
+              "
+            ></ion-icon>
+            <ion-icon
+              *ngIf="passwordInput.type === 'text'"
+              name="eye-off"
+              (click)="
+                passwordInput.type === 'password'
+                  ? (passwordInput.type = 'text')
+                  : (passwordInput.type = 'password')
+              "
+            >
+            </ion-icon>
           </ion-item>
         </div>
       </ion-col>
@@ -40,12 +64,8 @@
     <ion-row class="actions-wrapper">
       <ion-col>
         <div>
-          <ion-button expand="full" [routerLink]="['/home']"
-            >Registrarse</ion-button
-          >
-          <a href="login" onclick="javascript.void(0)" color="dark"
-            >¿Contraseña?</a
-          >
+          <ion-button expand="full" (click)="login(user)">Entrar</ion-button>
+          <a (click)="presentPasswordAlert()" color="dark">¿Contraseña?</a>
         </div>
       </ion-col>
     </ion-row>
