@@ -18,3 +18,16 @@ export interface ResponseLogout {
     msg: string
   }
 }
+
+export interface ErrorResponseLogin {
+  data: {
+    error: {
+      statusCode: number
+      status: number
+      code: number
+      message: string
+      name: string
+    }
+    msg: string
+  }
+}
