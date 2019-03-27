@@ -26,9 +26,17 @@
     "@ionic/angular": "^4.1.0",
     "@ionic/pro": "2.0.4",
     "@ionic/storage": "^2.2.0",
+    "cordova-android": "7.1.1",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
-    "zone.js": "~0.8.29"
+    "zone.js": "~0.8.29",
+    "cordova-plugin-whitelist": "1.3.3",
+    "cordova-plugin-statusbar": "2.4.2",
+    "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-splashscreen": "5.0.2",
+    "cordova-plugin-ionic-webview": "^3.0.0",
+    "cordova-plugin-ionic-keyboard": "^2.0.5",
+    "cordova-sqlite-storage": "~3.2.0"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.12.3",
@@ -59,7 +67,16 @@
   "description": "SGA + App Logística Krack",
   "cordova": {
     "plugins": {
-      "cordova-sqlite-storage": {}
-    }
+      "cordova-sqlite-storage": {},
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-keyboard": {}
+    },
+    "platforms": [
+      "android"
+    ]
   }
 }
