@@ -15,12 +15,16 @@
 For **sga** or **mobile** App, open console in the root project and execute
 
 ```bash
+cd apps/mobile
+npm install
 ionic serve --project sga
 ```
 
 or
 
 ```bash
+cd apps/sga
+npm install
 ionic serve --project mobile
 ```
 
@@ -31,6 +35,8 @@ and follow the steps.
 open console in the root project and execute
 
 ```bash
+cd apps/mobile
+npm install
 ionic cordova run android --project mobile
 ```
 
