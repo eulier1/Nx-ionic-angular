@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Logout',
-      url: '/login',
+      url: '/home',
       icon: 'log-out'
     }
   ];

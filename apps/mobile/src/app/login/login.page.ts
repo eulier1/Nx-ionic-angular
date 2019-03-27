@@ -10,7 +10,7 @@ import {
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../services/authentication.service';
 
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +28,8 @@ export class LoginPage implements OnInit {
     private loginService: LoginService,
     private router: Router,
     private authenticationService: AuthenticationService,
-    public toastController: ToastController
+    public toastController: ToastController,
+    public alertController: AlertController
   ) {}
 
   ngOnInit() {}
@@ -57,5 +58,16 @@ export class LoginPage implements OnInit {
       duration: 2750
     });
     toast.present();
+  }
+
+  async presentPasswordAlert() {
+    const alert = await this.alertController.create({
+      header: '¿Contraseña?',
+      message: `Si has olvidado tu contraseña o no tienes acceso a tu perfil ponte en contacto con tu
+        supervisor y él buscará cual es tu contraseña actual o te dará nuevos datos de acceso.`,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 }
