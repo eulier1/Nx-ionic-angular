@@ -44,13 +44,12 @@ for more commands to build or run, [running iOS](https://ionicframework.com/docs
 
 ### API Updates
 
-To generate a scheme (or type) for API & Enviroment to Typescript, we use [Quicktype](https://quicktype.io/).
+To generate a scheme (or Interface) from API & Enviroment Postman JSON, we use [MakeTypes](https://jvilk.com/MakeTypes/).
 
 To update latest API changes do the following
 
 - Export the collection from Postman
 - Set the exported collection in `/shared_modules/services/api` folder
-- User [Quicktype](https://quicktype.io/) to generate the scheme (Interfaces)
+- Use [MakeTypes](https://jvilk.com/MakeTypes/) to generate the scheme (Interfaces)
 - Save the scheme in `/shared_modules/models` folder
-- Due a missbehaviour when Quicktype generate such interface, **remove** property `name` from interface `ItemItem`
 - **Run** the proyect
