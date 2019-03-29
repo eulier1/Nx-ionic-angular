@@ -17,7 +17,7 @@ For **sga** or **mobile** App, open console in the root project and execute
 ```bash
 cd apps/mobile
 npm install
-ionic serve --project sga
+ionic serve --project mobile
 ```
 
 or
@@ -25,7 +25,7 @@ or
 ```bash
 cd apps/sga
 npm install
-ionic serve --project mobile
+ionic serve --project sga
 ```
 
 and follow the steps.
