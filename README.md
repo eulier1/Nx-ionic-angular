@@ -37,10 +37,13 @@ open console in the root project and execute
 ```bash
 cd apps/mobile
 npm install
-ionic cordova run android --project mobile
+ionic cordova build android --project mobile
 ```
 
-for more commands to build or run, [running iOS](https://ionicframework.com/docs/building/android) or [running Android](https://ionicframework.com/docs/building/ios)
+for more commands to, [running iOS](https://ionicframework.com/docs/building/android) or [running Android](https://ionicframework.com/docs/building/ios)
+
+--Android folder address apk generated--
+`/platforms/android/app/build/outputs/apk`
 
 ### API Updates
 
