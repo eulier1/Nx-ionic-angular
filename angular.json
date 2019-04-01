@@ -197,7 +197,7 @@
               }
             ],
             "styles": [
-              "apps/al/sga/styles.scss",
+              "apps/sga/src/styles.scss",
               {
                 "input": "apps/sga/src/theme/variables.scss"
               }

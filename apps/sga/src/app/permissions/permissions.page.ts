@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PermissionsService } from '../services/permissions.service';
-import { ResponseShow } from '../../../../../shared_modules/models/endpoints/Permissions';
+import { PermissionsService } from '@suite/services';
+import { ResponseShow } from '@suite/services';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 @Component({

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 import {
   ResponseLogin,
   RequestLogin,
-  ErrorResponseLogin
-} from '../../../../../shared_modules/models/endpoints/OAuth2';
+  ErrorResponseLogin,
+  Oauth2Service
+} from '@suite/services';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
   };
 
   constructor(
-    private loginService: LoginService,
+    private loginService: Oauth2Service,
     private router: Router,
     private authenticationService: AuthenticationService,
     public toastController: ToastController,
@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
 
   login(user: RequestLogin) {
     console.log(user);
-    this.loginService.postLogin(user).subscribe(
+    this.loginService.post_login(user).subscribe(
       (data: HttpResponse<ResponseLogin>) => {
         const response: ResponseLogin = data.body;
         console.log(response);

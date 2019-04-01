@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import * as LoginService from '@suite/services';
 import { Router } from '@angular/router';
 import {
   ResponseLogin,

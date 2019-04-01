@@ -10,9 +10,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { LoginService } from './services/login.service';
+import { ResponseLogout, Oauth2Service } from '@suite/services';
 import { HttpResponse } from '@angular/common/http';
-import { ResponseLogout } from '../../../../shared_modules/models/endpoints/OAuth2';
 import { AuthenticationService } from './services/authentication.service';
 
 interface MenuItem {
@@ -28,14 +27,14 @@ interface MenuItem {
 export class AppComponent implements OnInit {
   public appPages: MenuItem[] = [
     {
-      title: 'Inicio',
+      title: 'Home',
       url: '/home',
       icon: 'home'
     },
     {
-      title: 'Usuarios',
-      url: '/permissions',
-      icon: 'people'
+      title: 'List',
+      url: '/list',
+      icon: 'list'
     },
     {
       title: 'Logout',
@@ -54,7 +53,7 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private router: Router,
     private menu: MenuController,
-    private loginService: LoginService,
+    private loginService: Oauth2Service,
     private authenticationService: AuthenticationService
   ) {
     this.initializeApp();
@@ -86,7 +85,7 @@ export class AppComponent implements OnInit {
     if (p.title === 'Logout') {
       this.authenticationService.getCurrentToken().then(accessToken => {
         this.loginService
-          .getLogout(accessToken)
+          .get_logout(accessToken)
           .subscribe((data: HttpResponse<ResponseLogout>) => {
             this.authenticationService.logout();
             console.log(data.body.data.msg);
