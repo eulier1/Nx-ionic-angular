@@ -12,7 +12,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ResponseLogout, Oauth2Service } from '@suite/services';
 import { HttpResponse } from '@angular/common/http';
-import { AuthenticationService } from './services/authentication.service';
+import { AuthenticationService } from '@suite/services';
 
 interface MenuItem {
   title: string;
