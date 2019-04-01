@@ -20,12 +20,10 @@ export const PATH_GET_INDEX: string = PATH('Users', 'Index');
 export class UsersService {
   constructor(private http: HttpClient, private auth: AuthenticationService) {}
 
-  async getIndex(): Promise<
-    Observable<HttpResponse<UserModel.ResponseIndex[]>>
-  > {
+  async getIndex(): Promise<Observable<HttpResponse<UserModel.ResponseIndex>>> {
     const currentToken = await this.auth.getCurrentToken();
     const headers = new HttpHeaders({ Authorization: currentToken });
-    return this.http.get<UserModel.ResponseIndex[]>(PATH_GET_INDEX, {
+    return this.http.get<UserModel.ResponseIndex>(PATH_GET_INDEX, {
       headers: headers,
       observe: 'response'
     });

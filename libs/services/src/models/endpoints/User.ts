@@ -1,12 +1,11 @@
 export namespace UserModel {
+  export interface User {
+    id?: number;
+    email?: string;
+    name: string;
+  }
   export interface ResponseIndex {
-    data: [
-      {
-        id: number;
-        email: string;
-        name: string;
-      }
-    ];
+    data: User[];
   }
 
   export interface ResponseShow {
