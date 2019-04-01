@@ -8,7 +8,7 @@ import {
   Oauth2Service
 } from '@suite/services';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '@suite/services';
 
 import { ToastController, AlertController } from '@ionic/angular';
 

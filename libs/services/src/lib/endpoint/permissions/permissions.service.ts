@@ -11,7 +11,7 @@ import { PATH_GET_SHOW_PERMISSIONS } from '../../../api/endpoints/Permissions';
 import { ResponseShow } from '@suite/services';
 
 import { Observable } from 'rxjs/internal/Observable';
-import { AuthenticationService } from '../../../../../../apps/sga/src/app/services/authentication.service';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @Injectable({
   providedIn: 'root'
