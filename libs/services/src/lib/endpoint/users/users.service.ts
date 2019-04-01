@@ -13,7 +13,7 @@ import { UserModel } from '../../../models/endpoints/User';
 import { PATH } from '../../../api/base';
 
 export const PATH_GET_INDEX: string = PATH('Users', 'Index');
-
+export const PATH_POST_STORE: string = PATH('Users', 'Store');
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +24,17 @@ export class UsersService {
     const currentToken = await this.auth.getCurrentToken();
     const headers = new HttpHeaders({ Authorization: currentToken });
     return this.http.get<UserModel.ResponseIndex>(PATH_GET_INDEX, {
+      headers: headers,
+      observe: 'response'
+    });
+  }
+
+  async postStore(
+    user: UserModel.User
+  ): Promise<Observable<HttpResponse<UserModel.ResponseStore>>> {
+    const currentToken = await this.auth.getCurrentToken();
+    const headers = new HttpHeaders({ Authorization: currentToken });
+    return this.http.post<UserModel.ResponseStore>(PATH_GET_INDEX, user, {
       headers: headers,
       observe: 'response'
     });

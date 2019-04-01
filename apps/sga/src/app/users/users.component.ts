@@ -11,7 +11,7 @@ import { HttpResponse } from '@angular/common/http';
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements AfterViewInit {
-  displayedColumns: string[] = ['select', 'id', 'name', 'email'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'select'];
   dataSource: UserModel.User[] = [];
   selection = new SelectionModel<UserModel.User>(true, []);
 

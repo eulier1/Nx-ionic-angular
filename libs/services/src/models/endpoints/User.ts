@@ -3,19 +3,19 @@ export namespace UserModel {
     id?: number;
     email?: string;
     name: string;
+    password?: string;
   }
   export interface ResponseIndex {
     data: User[];
   }
-
-  export interface ResponseShow {
-    data: [
-      {
-        id: number;
-        email: string;
-        name: string;
-      }
-    ];
+  export interface ResponseStore {
+    data: {
+      id: number;
+      email: string;
+      name: string;
+    };
+    message: string;
+    code: number;
   }
 
   export interface ErrorResponseIndex {
