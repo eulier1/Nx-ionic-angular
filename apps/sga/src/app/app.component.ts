@@ -32,9 +32,9 @@ export class AppComponent implements OnInit {
       icon: 'home'
     },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
+      title: 'Users',
+      url: '/users',
+      icon: 'people'
     },
     {
       title: 'Logout',

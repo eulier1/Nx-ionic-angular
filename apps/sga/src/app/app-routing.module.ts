@@ -14,12 +14,15 @@ const routes: Routes = [
     loadChildren: './home/home.module#HomePageModule'
   },
   {
-    path: 'list',
+    path: 'users',
     canActivate: [AuthGuard],
-    loadChildren: './list/list.module#ListPageModule'
+    loadChildren: './users/users.module#UsersModule'
   },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'permissions', loadChildren: './permissions/permissions.module#PermissionsPageModule' }
+  {
+    path: 'permissions',
+    loadChildren: './permissions/permissions.module#PermissionsPageModule'
+  }
 ];
 
 @NgModule({
