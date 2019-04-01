@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { IonicStorageModule } from '@ionic/storage';
 
-import { LoginService } from './services/login.service';
+import { ServicesModule } from '@suite/services';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,13 +22,13 @@ import { LoginService } from './services/login.service';
     HttpClientModule,
     IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    ServicesModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    LoginService
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })

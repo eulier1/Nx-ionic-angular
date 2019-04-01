@@ -3,29 +3,29 @@ import {
   HeaderEntity,
   Auth1,
   Body
-} from "../../models/Api.Team.postman_collection"
-import { ServerPostmanEnvironment } from "../../models/Server.postman_environment"
+} from '../models/Api.Team.postman_collection';
+import { ServerPostmanEnvironment } from '../models/Server.postman_environment';
 // @ts-ignore
-import API_COLLECTION from "./postman/Api.Team.postman_collection.json"
+import API_COLLECTION from './postman/Api.Team.postman_collection.json';
 // @ts-ignore
-import ENV_COLLECTION from "./postman/Server.postman_environment.json"
+import ENV_COLLECTION from './postman/Server.postman_environment.json';
 
-let ENV: ServerPostmanEnvironment = ENV_COLLECTION
-let API_BASE: API = API_COLLECTION
+const ENV: ServerPostmanEnvironment = ENV_COLLECTION;
+const API_BASE: API = API_COLLECTION;
 
-export const URL: string = ENV.values.find(value => value.key === "url").value
+export const URL: string = ENV.values.find(value => value.key === 'url').value;
 
 export const ACCESS_TOKEN: string = ENV.values.find(
-  value => value.key === "access_token"
-).value
+  value => value.key === 'access_token'
+).value;
 
 export const PATH: string | any = (collection: string, requestName: string) =>
   URL +
-  "/" +
+  '/' +
   API_BASE.item
     .find(it => it.name === collection)
     .item.find(it => it.name === requestName)
-    .request.url.path.join("/")
+    .request.url.path.join('/');
 
 export const HEADERS: HeaderEntity[] | any = (
   collection: string,
@@ -33,14 +33,14 @@ export const HEADERS: HeaderEntity[] | any = (
 ) =>
   API_BASE.item
     .find(it => it.name === collection)
-    .item.find(it => it.name === requestName).request.header
+    .item.find(it => it.name === requestName).request.header;
 
 export const AUTH: Auth1 | any = (collection: string, requestName: string) =>
   API_BASE.item
     .find(it => it.name === collection)
-    .item.find(it => it.name === requestName).request.auth
+    .item.find(it => it.name === requestName).request.auth;
 
 export const BODY: Body | any = (collection: string, requestName: string) =>
   API_BASE.item
     .find(it => it.name === collection)
-    .item.find(it => it.name === requestName).request.body
+    .item.find(it => it.name === requestName).request.body;

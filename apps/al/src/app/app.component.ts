@@ -10,9 +10,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { LoginService } from './services/login.service';
+import { ResponseLogout, Oauth2Service } from '@suite/services';
 import { HttpResponse } from '@angular/common/http';
-import { ResponseLogout } from '../../../../shared_modules/models/endpoints/OAuth2';
 import { AuthenticationService } from './services/authentication.service';
 
 interface MenuItem {
@@ -54,7 +53,7 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private router: Router,
     private menu: MenuController,
-    private loginService: LoginService,
+    private loginService: Oauth2Service,
     private authenticationService: AuthenticationService
   ) {
     this.initializeApp();

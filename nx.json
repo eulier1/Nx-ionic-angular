@@ -19,6 +19,9 @@
     },
     "sga-e2e": {
       "tags": []
+    },
+    "services": {
+      "tags": []
     }
   }
 }

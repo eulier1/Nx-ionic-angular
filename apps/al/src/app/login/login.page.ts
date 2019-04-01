@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LoginService } from '../services/login.service';
+import * as LoginService from '@suite/services';
 import { Router } from '@angular/router';
 import {
   ResponseLogin,
   RequestLogin,
-  ErrorResponseLogin
-} from '../../../../../shared_modules/models/endpoints/OAuth2';
+  ErrorResponseLogin,
+  Oauth2Service
+} from '@suite/services';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -25,7 +26,7 @@ export class LoginPage implements OnInit {
   };
 
   constructor(
-    private loginService: LoginService,
+    private loginService: Oauth2Service,
     private router: Router,
     private authenticationService: AuthenticationService,
     public toastController: ToastController,

@@ -10,27 +10,26 @@ import {
   HEADERS_LOGIN,
   PATH_POST_LOGIN,
   PATH_GET_LOGOUT,
-  AUTH_LOGIN,
-  ACCESS_TOKEN_LOGOUT
-} from '../../../../../shared_modules/services/api/endpoints/OAuth2';
+  AUTH_LOGIN
+} from '../../../api/endpoints/OAuth2';
 
 import {
   RequestLogin,
   ResponseLogin,
   ResponseLogout
-} from '../../../../../shared_modules/models/endpoints/OAuth2';
+} from '../../../models/endpoints/OAuth2';
 
 import {
   HeaderEntity,
   BearerEntityOrBasicEntityOrUrlencodedEntityOrOauth2Entity
-} from '../../../../../shared_modules/models/Api.Team.postman_collection';
+} from '../../../models/Api.Team.postman_collection';
 
 import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class Oauth2Service {
   constructor(private http: HttpClient) {}
 
   post_login(user: RequestLogin): Observable<HttpResponse<ResponseLogin>> {
