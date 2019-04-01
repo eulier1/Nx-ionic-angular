@@ -1,0 +1,29 @@
+.wrapper-login-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+
+  ion-row.logo-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 auto;
+    padding: 2rem;
+  }
+
+  ion-row.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 120px;
+    width: 40vw;
+  }
+
+  ion-row.actions-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 95px;
+    width: 40vw;
+  }
+
+  overflow: hidden;
+}

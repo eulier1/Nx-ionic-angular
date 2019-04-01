@@ -1,41 +1,67 @@
 # Krack2020Suite
 
-This project was generated using [Nx](https://nx.dev).
+Sga & Logistica App para Krack
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
+## Requirements
 
-🔎 **Nx is a set of Angular CLI power-ups for modern development.**
+- [Enviroment Setup](https://ionicframework.com/docs/installation/environment)
+- [Ionic Installation](https://ionicframework.com/docs/installation/cli)
+- [iOS Setup](https://ionicframework.com/docs/installation/ios)
+- [Android Setup](https://ionicframework.com/docs/installation/android)
+- [Set up & Build Ionic App for -Ubuntu-](https://gallant-bell-850d88.netlify.com/2019/march/ionic4-workflow-multiapp-project.html#build-project-using-ionic-cli-for-mobile-dev)
 
-## Quick Start & Documentation
+## Usage
 
-[30-minute video showing all Nx features](https://nx.dev/getting-started/what-is-nx)
+open console in the root project and execute
 
-[Interactive tutorial](https://nx.dev/tutorial/01-create-application)
+```bash
+npm install
+```
 
-## Generate your first application
+then for
 
-Run `ng g app myapp` to generate an application. When using Nx, you can create multiple applications and libraries in the same CLI workspace.
+### Web development
 
-## Development server
+SGA development
 
-Run `ng serve myapp` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```bash
+ng serve --project sga
+```
 
-## Code scaffolding
+AL development
 
-Run `ng generate component component-name --project=myapp` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+ionic serve --project al
+```
 
-## Build
+### Mobile development
 
-Run `ng build myapp` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+open console in the root project and execute
 
-## Running unit tests
+\*For first time build
 
-Run `ng test` to execute the unit tests via [Jest](https://karma-runner.github.io).
+```bash
+ionic integrations enable cordova --add --project al
+```
 
-## Running end-to-end tests
+For local mobile development
 
-Run `ng e2e` to execute the end-to-end tests via [Cypress](http://www.protractortest.org/).
+```
+ionic cordova run android --project mobile
+```
 
-## Further help
+for more commands to build or run, [running iOS](https://ionicframework.com/docs/building/android) or [running Android](https://ionicframework.com/docs/building/ios)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### API Updates
+
+To generate a scheme (or Interface) from API & Enviroment Postman JSON, we use [MakeTypes](https://jvilk.com/MakeTypes/).
+
+To update latest API changes do the following
+
+- Export the collection from Postman
+- Set the exported collection in `/shared_modules/services/api` folder
+- Use [MakeTypes](https://jvilk.com/MakeTypes/) to generate the scheme (Interfaces)
+- Save the scheme in `/shared_modules/models` folder
+- **Run** the proyect
+
+Project set up thanks to [Nx](https://github.com/nrwl/nx)

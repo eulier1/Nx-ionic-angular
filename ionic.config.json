@@ -1,0 +1,27 @@
+{
+  "defaultProject": "al",
+  "projects": {
+    "al": {
+      "name": "al",
+      "integrations": {
+        "cordova": {
+          "plugins": {
+            "cordova-sqlite-storage": {}
+          }
+        }
+      },
+      "type": "angular",
+      "root": "./",
+      "id": "da3a39c1"
+    },
+    "sga": {
+      "name": "sga",
+      "integrations": {},
+      "type": "angular",
+      "root": "./"
+    }
+  },
+  "integrations": {
+    "cordova": {}
+  }
+}

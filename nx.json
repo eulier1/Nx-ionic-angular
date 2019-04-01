@@ -7,5 +7,18 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "al": {
+      "tags": []
+    },
+    "al-e2e": {
+      "tags": []
+    },
+    "sga": {
+      "tags": []
+    },
+    "sga-e2e": {
+      "tags": []
+    }
+  }
 }
