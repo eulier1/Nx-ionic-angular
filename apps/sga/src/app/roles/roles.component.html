@@ -1,0 +1,69 @@
+<ion-content padding>
+  <ion-text color="primary"> <h1>Roles</h1> </ion-text>
+
+  <table mat-table [dataSource]="dataSource" class="">
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      [routerLink]="['/roles/store', row.id]"
+      style="cursor: pointer"
+    ></tr>
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+          [aria-label]="checkboxLabel()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? checkSelection(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+  </table>
+
+  <!-- fab placed to the bottom end -->
+  <ion-row class="fab-row-actions">
+    <ion-col size="2" size-xs offset="8" offset-lg="10">
+      <ion-fab
+        *ngIf="showDeleteButton"
+        [@EnterLeave]="'flyIn'"
+        (click)="confirmDelete()"
+      >
+        <ion-fab-button color="light">
+          <ion-icon name="trash"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-col>
+    <ion-col size="2" size-xs>
+      <ion-fab>
+        <ion-fab-button [routerLink]="['/roles/store']">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-col>
+  </ion-row>
+</ion-content>

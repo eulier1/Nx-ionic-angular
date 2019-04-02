@@ -12,3 +12,7 @@ export * from './lib/endpoint/permissions/permissions.service';
 /** Users */
 export * from './models/endpoints/User';
 export * from './lib/endpoint/users/users.service';
+
+/** Roles */
+export * from './models/endpoints/Rol';
+export * from './lib/endpoint/roles/roles.service';
