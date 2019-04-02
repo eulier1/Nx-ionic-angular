@@ -25,7 +25,7 @@ then for
 SGA development
 
 ```bash
-ng serve --project sga
+ionic serve --project sga
 ```
 
 AL development
