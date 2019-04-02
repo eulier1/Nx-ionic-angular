@@ -1,0 +1,36 @@
+<ion-content padding>
+  <ion-text color="primary"> <h1>Crear Rol</h1> </ion-text>
+  <form [formGroup]="userEditForm" (ngSubmit)="onSubmit()">
+    <ion-grid class="wrapper-form">
+      <ion-row class="input-wrapper">
+        <ion-col>
+          <div>
+            <ion-item lines="full">
+              <ion-icon name="person"></ion-icon
+              ><ion-input
+                placeholder="Nombre"
+                class="ion-margin-horizontal"
+                type="email"
+                [formControl]="f.name"
+              ></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button slot="end" color="light" [routerLink]="['/roles']"
+      >Cancelar</ion-button
+    >
+    <ion-button
+      slot="end"
+      color="primary"
+      [disabled]="userEditForm.invalid"
+      (click)="onSubmit()"
+      >Guardar</ion-button
+    >
+  </ion-toolbar>
+</ion-footer>

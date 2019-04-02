@@ -37,6 +37,11 @@ export class AppComponent implements OnInit {
       icon: 'people'
     },
     {
+      title: 'Roles',
+      url: '/roles',
+      icon: 'person'
+    },
+    {
       title: 'Logout',
       url: '/home',
       icon: 'log-out'
@@ -68,7 +73,7 @@ export class AppComponent implements OnInit {
       /* Check for Authenticated user */
       this.authenticationService.authenticationState.subscribe(state => {
         if (state) {
-          this.router.navigate(['users']);
+          this.router.navigate(['roles']);
           this.menu.enable(true, 'sidebar');
         } else {
           this.router.navigate(['login']);
