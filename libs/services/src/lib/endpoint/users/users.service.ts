@@ -11,11 +11,13 @@ import { AuthenticationService } from '../authentication/authentication.service'
 
 import { UserModel } from '../../../models/endpoints/User';
 import { PATH } from '../../../api/base';
+import { forkJoin, concat } from 'rxjs';
 
 export const PATH_GET_INDEX: string = PATH('Users', 'Index');
 export const PATH_POST_STORE: string = PATH('Users', 'Store');
 export const PATH_GET_SHOW: string = PATH('Users', 'Show').slice(0, -1);
 export const PATH_PUT_UPDATE: string = PATH('Users', 'Update').slice(0, -1);
+export const PATH_DEL_DESTROY: string = PATH('Users', 'Destroy').slice(0, -1);
 
 @Injectable({
   providedIn: 'root'
@@ -67,5 +69,24 @@ export class UsersService {
         observe: 'response'
       }
     );
+  }
+
+  async deleteDestroy(
+    users: UserModel.User[]
+  ): Promise<Observable<HttpResponse<UserModel.ResponseDestroy>>[]> {
+    const currentToken = await this.auth.getCurrentToken();
+    const headers = new HttpHeaders({ Authorization: currentToken });
+
+    return users.map(user => {
+      return concat(
+        this.http.delete<UserModel.ResponseDestroy>(
+          `${PATH_DEL_DESTROY}${user.id}`,
+          {
+            headers: headers,
+            observe: 'response'
+          }
+        )
+      );
+    });
   }
 }

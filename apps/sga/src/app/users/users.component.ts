@@ -10,10 +10,14 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material';
 import { UserModel, UsersService } from '@suite/services';
 import { Observable } from 'rxjs';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { AlertController } from '@ionic/angular';
+import {
+  AlertController,
+  ToastController,
+  LoadingController
+} from '@ionic/angular';
 
 @Component({
   selector: 'suite-users',
@@ -37,12 +41,16 @@ export class UsersComponent implements OnInit {
   dataSource: UserModel.User[] = [];
   selection = new SelectionModel<UserModel.User>(true, []);
   navStart: Observable<NavigationStart>;
+
   showDeleteButton = false;
+  isLoading = false;
 
   constructor(
     private userService: UsersService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController,
+    public loadingController: LoadingController
   ) {
     console.log(this.dataSource);
 
@@ -114,25 +122,30 @@ export class UsersComponent implements OnInit {
 
   confirmDelete() {
     if (this.selection.selected.length > 0) {
-      this.presentPasswordAlert(this.selection);
+      this.presentUsertDeleteAlert(this.selection);
     }
     console.log('confirmDelete', this.selection.selected);
   }
 
-  async presentPasswordAlert(selectedUsers: SelectionModel<UserModel.User>) {
+  async presentUsertDeleteAlert(selectedUsers: SelectionModel<UserModel.User>) {
     let header = '';
     let msg = '';
+    let successMsg = '';
 
     if (selectedUsers.selected.length > 1) {
       header = 'Eliminar Usuarios';
       msg = `Estas a punto de eliminar <br>
       <strong>${selectedUsers.selected.length} usuarios</strong>.<br>
       ¿Esta seguro?`;
+      successMsg = `${selectedUsers.selected.length} usuarios eliminados`;
     } else {
       header = 'Eliminar Usuario';
       msg = `Estas a punto de eliminar <br> 
       el usuario ${selectedUsers.selected.map(value => value.name.bold())}.<br> 
       ¿Esta seguro? `;
+      successMsg = `Usuario ${selectedUsers.selected.map(
+        value => value.name
+      )} eliminado`;
     }
 
     const alert = await this.alertController.create({
@@ -151,11 +164,78 @@ export class UsersComponent implements OnInit {
           text: 'Vale',
           handler: () => {
             console.log('Confirm Okay');
+            this.presentLoading();
+            this.userService
+              .deleteDestroy(this.selection.selected)
+              .then(
+                (
+                  data: Observable<HttpResponse<UserModel.ResponseDestroy>>[]
+                ) => {
+                  data.map(
+                    (
+                      response$: Observable<
+                        HttpResponse<UserModel.ResponseDestroy>
+                      >
+                    ) => {
+                      response$.subscribe(
+                        (response: HttpResponse<UserModel.ResponseDestroy>) => {
+                          console.log(
+                            `${response.body.data} - ${response.body.code} - ${
+                              response.body.message
+                            }`
+                          );
+                          this.presentToast(successMsg);
+                          this.dismissLoading();
+                          this.initUsers();
+                        },
+                        (errorResponse: HttpErrorResponse) => {
+                          this.presentToast(errorResponse.message);
+                          console.log(errorResponse);
+                          this.dismissLoading();
+                          this.initUsers();
+                        }
+                      );
+                    }
+                  );
+                }
+              );
           }
         }
       ]
     });
 
     await alert.present();
+  }
+
+  async presentToast(msg) {
+    const toast = await this.toastController.create({
+      message: msg,
+      position: 'top',
+      duration: 2750
+    });
+    toast.present();
+  }
+
+  async presentLoading() {
+    this.isLoading = true;
+    return await this.loadingController
+      .create({
+        message: 'Un momento ...'
+      })
+      .then(a => {
+        a.present().then(() => {
+          console.log('presented');
+          if (!this.isLoading) {
+            a.dismiss().then(() => console.log('abort presenting'));
+          }
+        });
+      });
+  }
+
+  async dismissLoading() {
+    this.isLoading = false;
+    return await this.loadingController
+      .dismiss()
+      .then(() => console.log('dismissed'));
   }
 }

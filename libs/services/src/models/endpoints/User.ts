@@ -38,6 +38,12 @@ export namespace UserModel {
     code: number;
   }
 
+  export interface ResponseDestroy {
+    data: number;
+    message: string;
+    code: number;
+  }
+
   export interface ErrorResponseIndex {
     statusCode: number;
     status: number;
