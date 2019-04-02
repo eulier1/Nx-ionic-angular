@@ -4,7 +4,7 @@ import { UsersService, UserModel } from '@suite/services';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { ToastController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,11 +16,14 @@ export class StoreComponent implements OnInit {
   userForm: FormGroup;
   submitted = false;
 
+  isLoading = false;
+
   constructor(
     private usersService: UsersService,
     private formBuilder: FormBuilder,
     private toastController: ToastController,
-    private router: Router
+    private router: Router,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit() {
@@ -53,6 +56,7 @@ export class StoreComponent implements OnInit {
       return;
     }
 
+    this.presentLoading();
     const user: UserModel.User = {
       name: this.userForm.get('name').value,
       email: this.userForm.get('email').value,
@@ -64,10 +68,12 @@ export class StoreComponent implements OnInit {
       .then((data: Observable<HttpResponse<UserModel.ResponseStore>>) => {
         data.subscribe(
           (res: HttpResponse<UserModel.ResponseStore>) => {
+            this.dismissLoading();
             this.router.navigate(['users']);
             this.presentToast(`Usuario ${res.body.data.name} creado`);
           },
           (errorResponse: HttpErrorResponse) => {
+            this.dismissLoading();
             this.presentToast('Error - Errores no estandarizados');
           }
         );
@@ -81,6 +87,29 @@ export class StoreComponent implements OnInit {
       duration: 3750
     });
     toast.present();
+  }
+
+  async presentLoading() {
+    this.isLoading = true;
+    return await this.loadingController
+      .create({
+        message: 'Un momento ...'
+      })
+      .then(a => {
+        a.present().then(() => {
+          console.log('presented');
+          if (!this.isLoading) {
+            a.dismiss().then(() => console.log('abort presenting'));
+          }
+        });
+      });
+  }
+
+  async dismissLoading() {
+    this.isLoading = false;
+    return await this.loadingController
+      .dismiss()
+      .then(() => console.log('dismissed'));
   }
 }
 
