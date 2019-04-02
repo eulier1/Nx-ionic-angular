@@ -7,9 +7,10 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
 import { StoreComponent } from './store/store.component';
+import { UpdateComponent } from './update/update.component';
 
 @NgModule({
-  declarations: [UsersComponent, StoreComponent],
+  declarations: [UsersComponent, StoreComponent, UpdateComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

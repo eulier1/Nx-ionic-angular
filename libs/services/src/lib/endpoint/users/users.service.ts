@@ -14,6 +14,9 @@ import { PATH } from '../../../api/base';
 
 export const PATH_GET_INDEX: string = PATH('Users', 'Index');
 export const PATH_POST_STORE: string = PATH('Users', 'Store');
+export const PATH_GET_SHOW: string = PATH('Users', 'Show').slice(0, -1);
+export const PATH_PUT_UPDATE: string = PATH('Users', 'Update').slice(0, -1);
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,9 +37,35 @@ export class UsersService {
   ): Promise<Observable<HttpResponse<UserModel.ResponseStore>>> {
     const currentToken = await this.auth.getCurrentToken();
     const headers = new HttpHeaders({ Authorization: currentToken });
-    return this.http.post<UserModel.ResponseStore>(PATH_GET_INDEX, user, {
+    return this.http.post<UserModel.ResponseStore>(PATH_POST_STORE, user, {
       headers: headers,
       observe: 'response'
     });
+  }
+
+  async getShow(
+    userId: string | number
+  ): Promise<Observable<HttpResponse<UserModel.ResponseShow>>> {
+    const currentToken = await this.auth.getCurrentToken();
+    const headers = new HttpHeaders({ Authorization: currentToken });
+    return this.http.get<UserModel.ResponseShow>(`${PATH_GET_SHOW}${userId}`, {
+      headers: headers,
+      observe: 'response'
+    });
+  }
+
+  async putUpdate(
+    user: UserModel.User
+  ): Promise<Observable<HttpResponse<UserModel.ResponseUpdate>>> {
+    const currentToken = await this.auth.getCurrentToken();
+    const headers = new HttpHeaders({ Authorization: currentToken });
+    return this.http.put<UserModel.ResponseUpdate>(
+      `${PATH_PUT_UPDATE}${user.id}`,
+      user,
+      {
+        headers: headers,
+        observe: 'response'
+      }
+    );
   }
 }

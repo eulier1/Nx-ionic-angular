@@ -24,7 +24,8 @@
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
-      (click)="selection.toggle(row)"
+      [routerLink]="['/users/store', row.id]"
+      style="cursor: pointer"
     ></tr>
 
     <!-- Checkbox Column -->
@@ -52,14 +53,14 @@
 
   <!-- fab placed to the bottom end -->
   <ion-row class="fab-row-actions">
-    <ion-col size="1" size-sm offset="10">
+    <ion-col size="2" size-xs offset="8" offset-lg="10">
       <ion-fab>
         <ion-fab-button color="light">
           <ion-icon name="trash"></ion-icon>
         </ion-fab-button>
       </ion-fab>
     </ion-col>
-    <ion-col size="1" size-sm>
+    <ion-col size="2" size-xs>
       <ion-fab>
         <ion-fab-button [routerLink]="['/users/store']">
           <ion-icon name="add"></ion-icon>

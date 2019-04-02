@@ -18,6 +18,26 @@ export namespace UserModel {
     code: number;
   }
 
+  export interface ResponseShow {
+    data: {
+      id: number;
+      email: string;
+      name: string;
+    };
+    message: string;
+    code: number;
+  }
+
+  export interface ResponseUpdate {
+    data: {
+      id: number;
+      email: string;
+      name: string;
+    };
+    message: string;
+    code: number;
+  }
+
   export interface ErrorResponseIndex {
     statusCode: number;
     status: number;
