@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material';
 import { UserModel, UsersService } from '@suite/services';
 import { Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
-import { Router, NavigationStart } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -23,12 +23,9 @@ export class UsersComponent implements OnInit {
 
     // Create a new Observable that publishes only the NavigationStart event
     this.navStart = router.events.pipe(
-      filter(evt => evt instanceof NavigationStart)
-    ) as Observable<NavigationStart>;
-  }
+      filter(evt => evt instanceof NavigationEnd)
+    ) as Observable<NavigationEnd>;
 
-  ngOnInit() {
-    console.log('users');
     this.userService
       .getIndex()
       .then((data: Observable<HttpResponse<UserModel.ResponseIndex>>) => {
@@ -37,6 +34,22 @@ export class UsersComponent implements OnInit {
           console.log(this.dataSource);
         });
       });
+  }
+
+  ngOnInit() {
+    this.navStart.subscribe(evt => {
+      console.log(evt);
+      if (evt.url === '/users') {
+        this.userService
+          .getIndex()
+          .then((data: Observable<HttpResponse<UserModel.ResponseIndex>>) => {
+            data.subscribe((res: HttpResponse<UserModel.ResponseIndex>) => {
+              this.dataSource = res.body.data;
+              console.log(this.dataSource);
+            });
+          });
+      }
+    });
   }
 
   /** Whether the number of selected elements matches the total number of rows. */

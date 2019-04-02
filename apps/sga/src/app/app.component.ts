@@ -68,7 +68,6 @@ export class AppComponent implements OnInit {
       /* Check for Authenticated user */
       this.authenticationService.authenticationState.subscribe(state => {
         if (state) {
-          this.router.navigate(['users/store']);
           this.menu.enable(true, 'sidebar');
         } else {
           this.router.navigate(['login']);
