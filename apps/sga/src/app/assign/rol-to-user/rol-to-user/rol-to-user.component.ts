@@ -117,17 +117,15 @@ export class RolToUserComponent implements OnInit {
     this.isLoadingAssignRoleToUser = true;
     console.log('assignRoleToUser', rol);
 
-    if (rol.selected) {
-      ev.selected = true;
-    }
-
-    if (ev.selected && !rol.selected) {
+    // Assign New Rol
+    if ((ev.selected && !rol.selected) || (ev.selected && rol.selected)) {
       this.rolesService
         .postAssignRolToUser(user.id, rol.id)
         .then((data: Observable<HttpResponse<ACLModel.ResponseUserRoles>>) => {
           data.subscribe(
             (res: HttpResponse<ACLModel.ResponseUserRoles>) => {
               this.isLoadingAssignRoleToUser = false;
+              ev.selected = true;
               this.presentToast(
                 `Usuario ${user.name} ha sido asignado Rol ${rol.name}`
               );
@@ -146,10 +144,37 @@ export class RolToUserComponent implements OnInit {
             }
           );
         });
-    } else {
-      this.presentToast(`API en construcción para - Eliminar Rol de Usuario`);
-      this.isLoadingAssignRoleToUser = false;
-      ev.selected = true;
+    }
+    // Delete Rol
+    if ((!ev.selected && rol.selected) || (!ev.selected && !rol.selected)) {
+      console.log('Delete');
+      this.rolesService
+        .deleteRolToUser(user.id, rol.id)
+        .then(
+          (data: Observable<HttpResponse<ACLModel.ResponseDeleteUserRol>>) => {
+            data.subscribe(
+              (res: HttpResponse<ACLModel.ResponseDeleteUserRol>) => {
+                this.isLoadingAssignRoleToUser = false;
+                ev.selected = false;
+                this.presentToast(
+                  `Rol ${rol.name} fue removido de ${user.name}`
+                );
+              },
+              (errorResponse: HttpErrorResponse) => {
+                this.isLoadingAssignRoleToUser = false;
+                this.presentToast(
+                  `${errorResponse.status} - ${errorResponse.message}`
+                );
+                ev.selected = true;
+                // Unselect option due network error
+                this.userRolesSelected.splice(indexSelected, 1, {
+                  ...rol,
+                  selected: true
+                });
+              }
+            );
+          }
+        );
     }
   }
 

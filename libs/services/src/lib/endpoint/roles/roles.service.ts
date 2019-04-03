@@ -106,4 +106,19 @@ export class RolesService {
       }
     );
   }
+
+  async deleteRolToUser(
+    userId: number,
+    rolId: number
+  ): Promise<Observable<HttpResponse<ACLModel.ResponseDeleteUserRol>>> {
+    const currentToken = await this.auth.getCurrentToken();
+    const headers = new HttpHeaders({ Authorization: currentToken });
+    return this.http.delete<ACLModel.ResponseDeleteUserRol>(
+      `${PATH_BASE}users/${userId}/roles/${rolId}`,
+      {
+        headers: headers,
+        observe: 'response'
+      }
+    );
+  }
 }
