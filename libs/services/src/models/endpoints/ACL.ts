@@ -6,4 +6,10 @@ export namespace ACLModel {
     message: string;
     code;
   }
+
+  export interface ResponseDeleteUserRol {
+    data: boolean;
+    message: string;
+    code: number;
+  }
 }
