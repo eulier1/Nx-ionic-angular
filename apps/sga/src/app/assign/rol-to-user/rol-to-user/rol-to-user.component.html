@@ -1,0 +1,47 @@
+<ion-content padding>
+  <ion-text color="primary"> <h1>Asignar Rol a Usuario</h1> </ion-text>
+
+  <mat-accordion *ngFor="let user of users">
+    <mat-expansion-panel
+      (opened)="showUserRoles(user.id)"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> {{ user.name }} </mat-panel-title>
+        <mat-panel-description> {{ user.email }} </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <h2 class="example-h2">Roles</h2>
+      <div *ngIf="!isLoadingRoles">
+        <mat-selection-list
+          #rolesSelection
+          *ngFor="
+            let rol of userRolesSelected;
+            let i = index;
+            trackBy: trackById
+          "
+          (selectionChange)="
+            indexSelected = i; assignRoleToUser(rol, i, user, matListOption)
+          "
+        >
+          <mat-list-option
+            #matListOption
+            [hidden]="isLoadingAssignRoleToUser && indexSelected === i"
+            [selected]="rol.selected"
+            [value]="rol.name"
+          >
+            <p>{{ rol.name }}</p>
+          </mat-list-option>
+          <mat-list
+            *ngIf="isLoadingAssignRoleToUser && indexSelected === i"
+            style="display: flex; justify-content:center;"
+            ><ion-spinner></ion-spinner
+          ></mat-list>
+        </mat-selection-list>
+      </div>
+      <mat-list style="display: flex; justify-content:center;"
+        ><ion-spinner *ngIf="isLoadingRoles"></ion-spinner
+      ></mat-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ion-content>
