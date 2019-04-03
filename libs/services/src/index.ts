@@ -16,3 +16,7 @@ export * from './lib/endpoint/users/users.service';
 /** Roles */
 export * from './models/endpoints/Rol';
 export * from './lib/endpoint/roles/roles.service';
+
+/** ACL */
+export * from './models/endpoints/ACL';
+export * from './lib/endpoint/acl/acl.service';

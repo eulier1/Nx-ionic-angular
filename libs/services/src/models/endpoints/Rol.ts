@@ -30,6 +30,26 @@ export namespace RolModel {
     code: number;
   }
 
+  export interface ResponseAssign {
+    data: {
+      id?: number;
+      email: string;
+      name: string;
+      password: string;
+      salt: string;
+      resetPasswordToken: null;
+      __roles__: [
+        {
+          id: number;
+          name: string;
+        }
+      ];
+      __has_roles__: boolean;
+    };
+    message: string;
+    code: number;
+  }
+
   export interface ErrorResponseIndex {
     statusCode: number;
     status: number;

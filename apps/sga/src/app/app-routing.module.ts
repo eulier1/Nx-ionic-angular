@@ -23,6 +23,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: './roles/roles.module#RolesModule'
   },
+  {
+    path: 'assign',
+    canActivate: [AuthGuard],
+    loadChildren: './assign/assign.module#AssignModule'
+  },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   {
     path: 'permissions',
