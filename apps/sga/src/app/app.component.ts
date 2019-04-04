@@ -47,6 +47,11 @@ export class AppComponent implements OnInit {
       icon: 'person'
     },
     {
+      title: 'Asignar Permiso a Rol',
+      url: '/assign/per/rol',
+      icon: 'person'
+    },
+    {
       title: 'Logout',
       url: '/home',
       icon: 'log-out'
@@ -78,7 +83,7 @@ export class AppComponent implements OnInit {
       /* Check for Authenticated user */
       this.authenticationService.authenticationState.subscribe(state => {
         if (state) {
-          this.router.navigate(['assign']);
+          this.router.navigate(['assign/per/rol']);
           this.menu.enable(true, 'sidebar');
         } else {
           this.router.navigate(['login']);

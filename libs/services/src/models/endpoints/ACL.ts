@@ -12,4 +12,16 @@ export namespace ACLModel {
     message: string;
     code: number;
   }
+
+  export interface ResponseRolPermissions {
+    data: Array<any>;
+    message: string;
+    code;
+  }
+
+  export interface ResponseDeleteRolPermissions {
+    data: boolean;
+    message: string;
+    code: number;
+  }
 }

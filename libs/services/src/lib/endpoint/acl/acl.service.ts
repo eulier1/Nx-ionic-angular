@@ -33,4 +33,18 @@ export class AclService {
       }
     );
   }
+
+  async getRolPermissions(
+    rolId: number
+  ): Promise<Observable<HttpResponse<ACLModel.ResponseUserRoles>>> {
+    const currentToken = await this.auth.getCurrentToken();
+    const headers = new HttpHeaders({ Authorization: currentToken });
+    return this.http.get<ACLModel.ResponseUserRoles>(
+      `${PATH_BASE}roles/${rolId}/permissions`,
+      {
+        headers: headers,
+        observe: 'response'
+      }
+    );
+  }
 }
