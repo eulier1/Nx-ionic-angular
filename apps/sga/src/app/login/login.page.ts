@@ -19,8 +19,8 @@ import { ToastController, AlertController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
   user: RequestLogin = {
-    username: 'conde@montecristo.fr',
-    password: 'lecomtedemontecristo',
+    username: 'admin@krackonline.com',
+    password: 'ChangeMe.1234',
     grant_type: 'password'
   };
 
