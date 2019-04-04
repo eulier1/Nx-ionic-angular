@@ -44,3 +44,20 @@ export const BODY: Body | any = (collection: string, requestName: string) =>
   API_BASE.item
     .find(it => it.name === collection)
     .item.find(it => it.name === requestName).request.body;
+
+export namespace AppInfo {
+  export enum ClientSecretSGA {
+    Username = 'tester',
+    Password = 'secret'
+  }
+
+  export enum ClientSecretAL {
+    Username = 'tester',
+    Password = 'secret'
+  }
+
+  export enum Name {
+    Sga = 'SGA',
+    Al = 'AL'
+  }
+}
