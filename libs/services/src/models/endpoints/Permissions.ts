@@ -1,6 +1,17 @@
 export namespace PermissionsModel {
+  export interface Permission {
+    id?: number;
+    name: string;
+  }
+
+  export interface ResponseIndex {
+    data: Permission[];
+    message: string;
+    code: number;
+  }
+
   export interface ResponseShow {
-    data: {};
+    data: Permission;
   }
 
   export interface ErrorResponseShow {

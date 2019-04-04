@@ -11,16 +11,16 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { AuthenticationService } from '@suite/services';
 
 import { ToastController, AlertController } from '@ionic/angular';
-
+import { AppInfo } from 'config/base';
 @Component({
-  selector: 'app-login',
+  selector: 'suite-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss']
 })
-export class LoginPage implements OnInit {
+export class LoginComponent implements OnInit {
   user: RequestLogin = {
-    username: 'conde@montecristo.fr',
-    password: 'lecomtedemontecristo',
+    username: 'admin@krackonline.com',
+    password: 'ChangeMe.1234',
     grant_type: 'password'
   };
 
@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
 
   login(user: RequestLogin) {
     console.log(user);
-    this.loginService.post_login(user).subscribe(
+    this.loginService.post_login(user, AppInfo.Name.Al).subscribe(
       (data: HttpResponse<ResponseLogin>) => {
         const response: ResponseLogin = data.body;
         console.log(response);

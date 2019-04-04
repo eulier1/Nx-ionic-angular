@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/internal/Observable';
 import { AuthenticationService } from '../authentication/authentication.service';
 
 import { RolModel } from '../../../models/endpoints/Rol';
-import { PATH, URL } from '../../../api/base';
+import { PATH, URL } from '../../../../../../config/base';
 import { concat } from 'rxjs';
 import { ACLModel } from '@suite/services';
 

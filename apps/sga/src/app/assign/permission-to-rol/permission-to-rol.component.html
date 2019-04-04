@@ -1,0 +1,48 @@
+<ion-content padding>
+  <ion-text color="primary"> <h1>Asignar Permiso a Rol</h1> </ion-text>
+
+  <mat-accordion *ngFor="let rol of roles">
+    <mat-expansion-panel
+      (opened)="showRolPermissions(rol.id)"
+      (closed)="panelOpenState = false"
+    >
+      <mat-expansion-panel-header>
+        <mat-panel-title> {{ rol.id }} </mat-panel-title>
+        <mat-panel-description> {{ rol.name }} </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <h2 class="example-h2">Permisos</h2>
+      <div *ngIf="!isLoadingPermissions">
+        <mat-selection-list
+          #rolesSelection
+          *ngFor="
+            let permission of rolepermissionsSelected;
+            let i = index;
+            trackBy: trackById
+          "
+          (selectionChange)="
+            indexSelected = i;
+            assignPermissionToRol(permission, i, permission, matListOption)
+          "
+        >
+          <mat-list-option
+            #matListOption
+            [hidden]="isLoadingAssignPermissionToRole && indexSelected === i"
+            [selected]="permission.selected"
+            [value]="permission.name"
+          >
+            <p>{{ permission.name }}</p>
+          </mat-list-option>
+          <mat-list
+            *ngIf="isLoadingAssignPermissionToRole && indexSelected === i"
+            style="display: flex; justify-content:center;"
+            ><ion-spinner></ion-spinner
+          ></mat-list>
+        </mat-selection-list>
+      </div>
+      <mat-list style="display: flex; justify-content:center;"
+        ><ion-spinner *ngIf="isLoadingPermissions"></ion-spinner
+      ></mat-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+</ion-content>

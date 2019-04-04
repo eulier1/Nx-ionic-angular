@@ -14,13 +14,19 @@ import {
 
 import {
   HeaderEntity,
-  BearerEntityOrBasicEntityOrUrlencodedEntityOrOauth2Entity
-} from '../../../models/Api.Team.postman_collection';
+  BearerEntityOrBasicEntityOrUrlencodedEntityOrOauth2Entity,
+  Auth1
+} from '../../../../../../config/postman/Api.Team.postman_collection';
 
 import { Observable } from 'rxjs/internal/Observable';
 
-import { PATH, HEADERS, AUTH, ACCESS_TOKEN } from '../../../api/base';
-import { Auth1 } from '../../../models/Api.Team.postman_collection';
+import {
+  PATH,
+  HEADERS,
+  AUTH,
+  ACCESS_TOKEN,
+  AppInfo
+} from '../../../../../../config/base';
 
 export const HEADERS_LOGIN: any[] = HEADERS('OAuth2', 'Login');
 export const AUTH_LOGIN: Auth1 = AUTH('OAuth2', 'Login');
@@ -36,8 +42,26 @@ export const ACCESS_TOKEN_LOGOUT = ACCESS_TOKEN;
 export class Oauth2Service {
   constructor(private http: HttpClient) {}
 
-  post_login(user: RequestLogin): Observable<HttpResponse<ResponseLogin>> {
-    const authType = `Basic ${this._authBasicString()}`;
+  post_login(
+    user: RequestLogin,
+    appName: AppInfo.Name
+  ): Observable<HttpResponse<ResponseLogin>> {
+    let authType = '';
+
+    if (appName === AppInfo.Name.Sga) {
+      authType = `Basic ${this._authBasicString(
+        `${AppInfo.ClientSecretSGA.Username}:${
+          AppInfo.ClientSecretSGA.Password
+        }`
+      )}`;
+    }
+
+    if (appName === AppInfo.Name.Al) {
+      authType = `Basic ${this._authBasicString(
+        `${AppInfo.ClientSecretAL.Username}:${AppInfo.ClientSecretAL.Password}`
+      )}`;
+    }
+
     const headers = new HttpHeaders(this._headers(authType));
 
     const body = new HttpParams()
@@ -82,18 +106,8 @@ export class Oauth2Service {
     return result;
   }
 
-  private _authBasicString() {
-    return btoa(
-      AUTH_LOGIN.basic
-        .map(
-          (
-            basic: BearerEntityOrBasicEntityOrUrlencodedEntityOrOauth2Entity
-          ) => {
-            return basic.value;
-          }
-        )
-        .reverse()
-        .join(':')
-    );
+  private _authBasicString(term: string) {
+    console.log(term);
+    return btoa(term);
   }
 }

@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { AuthenticationService } from '../authentication/authentication.service';
 
 import { ACLModel } from '../../../models/endpoints/ACL';
-import { URL } from '../../../api/base';
+import { URL } from '../../../../../../config/base';
 
 const PATH_BASE: string = URL + '/api/';
 
@@ -27,6 +27,20 @@ export class AclService {
     const headers = new HttpHeaders({ Authorization: currentToken });
     return this.http.get<ACLModel.ResponseUserRoles>(
       `${PATH_BASE}users/${userId}/roles`,
+      {
+        headers: headers,
+        observe: 'response'
+      }
+    );
+  }
+
+  async getRolPermissions(
+    rolId: number
+  ): Promise<Observable<HttpResponse<ACLModel.ResponseUserRoles>>> {
+    const currentToken = await this.auth.getCurrentToken();
+    const headers = new HttpHeaders({ Authorization: currentToken });
+    return this.http.get<ACLModel.ResponseUserRoles>(
+      `${PATH_BASE}roles/${rolId}/permissions`,
       {
         headers: headers,
         observe: 'response'
