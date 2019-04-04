@@ -1,8 +1,9 @@
 <ion-content padding>
   <ion-text color="primary"> <h1>Asignar Rol a Usuario</h1> </ion-text>
 
-  <mat-accordion *ngFor="let user of users">
+  <mat-accordion multi="false">
     <mat-expansion-panel
+      *ngFor="let user of users"
       (opened)="showUserRoles(user.id)"
       (closed)="panelOpenState = false"
     >

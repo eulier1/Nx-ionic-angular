@@ -25,7 +25,7 @@ export class PermissionToRolComponent implements OnInit {
   /* Data Layer */
   permissions: PermissionsModel.Permission[] = [];
   roles: RolModel.Rol[] = [];
-  currentRolPermissions: RolModel.Rol[];
+  currentRolPermissions: PermissionsModel.Permission[];
 
   /* Presentation Layer */
   panelOpenState = false;
@@ -78,17 +78,17 @@ export class PermissionToRolComponent implements OnInit {
         data.subscribe((res: HttpResponse<ACLModel.ResponseUserRoles>) => {
           this.currentRolPermissions =
             res.body.data.length === 0 ? [{ name: '', id: 0 }] : res.body.data;
-          console.log('this.permissions', this.roles);
+          console.log('this.permissions', this.permissions);
           console.log('this.currentRolPermissions', this.currentRolPermissions);
           this.isLoadingPermissions = false;
           this.rolepermissionsSelected = [];
           // Applying Intersection, to get user roles selected
-          selectedPermissions = this.roles.filter((rol: RolModel.Rol) =>
+          selectedPermissions = this.permissions.filter((rol: RolModel.Rol) =>
             this.currentRolPermissions.find(rolData => rolData.id === rol.id)
           );
 
           // Applying Diference, to get user roles not selected
-          unselectedPermissions = this.roles.filter(
+          unselectedPermissions = this.permissions.filter(
             (rol: RolModel.Rol) =>
               !this.currentRolPermissions.find(rolData => rolData.id === rol.id)
           );

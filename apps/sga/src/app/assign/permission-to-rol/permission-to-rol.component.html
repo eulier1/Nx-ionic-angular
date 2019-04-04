@@ -1,8 +1,9 @@
 <ion-content padding>
   <ion-text color="primary"> <h1>Asignar Permiso a Rol</h1> </ion-text>
 
-  <mat-accordion *ngFor="let rol of roles">
+  <mat-accordion multi="false">
     <mat-expansion-panel
+      *ngFor="let rol of roles"
       (opened)="showRolPermissions(rol.id)"
       (closed)="panelOpenState = false"
     >
@@ -22,7 +23,7 @@
           "
           (selectionChange)="
             indexSelected = i;
-            assignPermissionToRol(permission, i, permission, matListOption)
+            assignPermissionToRol(permission, i, rol, matListOption)
           "
         >
           <mat-list-option
