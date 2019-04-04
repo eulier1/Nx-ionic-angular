@@ -7,7 +7,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatListModule } from '@angular/material/list';
 
 import { AssignRoutingModule } from './assign-routing.module';
-import { RolToUserComponent } from './rol-to-user/rol-to-user/rol-to-user.component';
+import { RolToUserComponent } from './rol-to-user/rol-to-user.component';
 import { PermissionToRolComponent } from './permission-to-rol/permission-to-rol.component';
 
 @NgModule({
