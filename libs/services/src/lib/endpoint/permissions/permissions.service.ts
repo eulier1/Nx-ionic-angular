@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpParams,
-  HttpResponse
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/internal/Observable';
 import { AuthenticationService } from '../authentication/authentication.service';
@@ -12,7 +7,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 import { PermissionsModel } from '../../../models/endpoints/Permissions';
 import { ACLModel } from '../../../models/endpoints/ACL';
 
-import { PATH, URL } from '../../../api/base';
+import { PATH, URL } from '../../../../../../config/base';
 
 const PATH_GET_INDEX: string = PATH('Permissions', 'Index');
 const PATH_GET_SHOW: string = PATH('Permissions', 'Show');

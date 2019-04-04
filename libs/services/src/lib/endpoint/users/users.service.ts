@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { AuthenticationService } from '../authentication/authentication.service';
 
 import { UserModel } from '../../../models/endpoints/User';
-import { PATH } from '../../../api/base';
+import { PATH } from '../../../../../../config/base';
 import { forkJoin, concat } from 'rxjs';
 
 export const PATH_GET_INDEX: string = PATH('Users', 'Index');

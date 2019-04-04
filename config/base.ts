@@ -3,8 +3,8 @@ import {
   HeaderEntity,
   Auth1,
   Body
-} from '../models/Api.Team.postman_collection';
-import { ServerPostmanEnvironment } from '../models/Server.postman_environment';
+} from './postman/Api.Team.postman_collection';
+import { ServerPostmanEnvironment } from './postman/Server.postman_environment';
 // @ts-ignore
 import API_COLLECTION from './postman/Api.Team.postman_collection.json';
 // @ts-ignore

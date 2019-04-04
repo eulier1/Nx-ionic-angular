@@ -14,13 +14,18 @@ import {
 
 import {
   HeaderEntity,
-  BearerEntityOrBasicEntityOrUrlencodedEntityOrOauth2Entity
-} from '../../../models/Api.Team.postman_collection';
+  BearerEntityOrBasicEntityOrUrlencodedEntityOrOauth2Entity,
+  Auth1
+} from '../../../../../../config/postman/Api.Team.postman_collection';
 
 import { Observable } from 'rxjs/internal/Observable';
 
-import { PATH, HEADERS, AUTH, ACCESS_TOKEN } from '../../../api/base';
-import { Auth1 } from '../../../models/Api.Team.postman_collection';
+import {
+  PATH,
+  HEADERS,
+  AUTH,
+  ACCESS_TOKEN
+} from '../../../../../../config/base';
 
 export const HEADERS_LOGIN: any[] = HEADERS('OAuth2', 'Login');
 export const AUTH_LOGIN: Auth1 = AUTH('OAuth2', 'Login');
