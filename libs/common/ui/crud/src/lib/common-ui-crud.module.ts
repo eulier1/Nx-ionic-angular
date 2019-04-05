@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { MatTableModule, MatCheckboxModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ListComponent } from './list/list.component';
+import { StoreComponent } from './list/store/store.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { ListComponent } from './list/list.component';
     CdkTableModule,
     RouterModule.forChild([{ path: '', component: ListComponent }])
   ],
-  exports: [ListComponent],
-  declarations: [ListComponent]
+  exports: [ListComponent, StoreComponent],
+  declarations: [ListComponent, StoreComponent]
 })
 export class CommonUiCrudModule {}

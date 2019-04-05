@@ -21,7 +21,7 @@ import {
 } from '@ionic/angular';
 
 @Component({
-  selector: 'suite-list',
+  selector: 'suite-ui-crud-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   animations: [

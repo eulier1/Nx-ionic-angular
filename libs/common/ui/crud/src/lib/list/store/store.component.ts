@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UsersService, UserModel } from '@suite/services';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -8,21 +8,23 @@ import { ToastController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'suite-store',
+  selector: 'suite-ui-crud-store',
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.scss']
 })
 export class StoreComponent implements OnInit {
+  @Input() title = '';
+  @Input() formInputs: {
+    [name: string]: [string, Validators[]];
+  };
+  @Input() validators: {
+    validator: any;
+  };
+
   userForm: FormGroup;
   submitted = false;
-  formInputs = {
-    name: ['', [Validators.required, Validators.minLength(4)]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    confirmPassword: ['', Validators.required]
-  };
+
   isLoading = false;
-  title = 'Usuario Create Test';
 
   constructor(
     private usersService: UsersService,
@@ -33,17 +35,9 @@ export class StoreComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userForm = this.formBuilder.group(
-      {
-        name: ['', [Validators.required, Validators.minLength(4)]],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]],
-        confirmPassword: ['', Validators.required]
-      },
-      {
-        validator: MustMatch('password', 'confirmPassword')
-      }
-    );
+    this.userForm = this.formBuilder.group(this.formInputs, {
+      validator: MustMatch('password', 'confirmPassword')
+    });
     console.log(this.f);
   }
 
