@@ -43,6 +43,7 @@ export class ListComponent implements OnInit {
   @Input() apiEndpoint: string;
   @Input() dataColumns: string[];
   @Input() displayedColumns: string[];
+  @Input() routePath: string;
 
   // Presentation Layer
   dataSource: UserModel.User[] | RolModel.Rol[] = [];
@@ -71,7 +72,7 @@ export class ListComponent implements OnInit {
     this.initUsers();
     this.navStart.subscribe(evt => {
       console.log(evt);
-      if (evt.url === '/users') {
+      if (evt.url === this.routePath) {
         this.initUsers();
       }
     });

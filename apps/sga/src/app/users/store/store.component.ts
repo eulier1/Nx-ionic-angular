@@ -7,8 +7,6 @@ import { FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./store.component.scss']
 })
 export class StoreComponent implements OnInit {
-  userForm: FormGroup;
-  submitted = false;
   formBuilderDataInputs = {
     name: ['', [Validators.required, Validators.minLength(4)]],
     email: ['', [Validators.required, Validators.email]],
@@ -37,8 +35,7 @@ export class StoreComponent implements OnInit {
       type: 'password'
     }
   ];
-  isLoading = false;
-  title = 'Usuario Create Test';
+  title = 'Crear Usuario';
   apiEndpoint = 'Users';
   redirectTo = 'users';
 

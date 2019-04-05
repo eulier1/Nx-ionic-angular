@@ -7,6 +7,7 @@ import { MatTableModule, MatCheckboxModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { ListComponent } from './list/list.component';
 import { StoreComponent } from './list/store/store.component';
+import { UpdateComponent } from './list/update/update.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { StoreComponent } from './list/store/store.component';
     CdkTableModule,
     RouterModule.forChild([{ path: '', component: ListComponent }])
   ],
-  exports: [ListComponent, StoreComponent],
-  declarations: [ListComponent, StoreComponent]
+  exports: [ListComponent, StoreComponent, UpdateComponent],
+  declarations: [ListComponent, StoreComponent, UpdateComponent]
 })
 export class CommonUiCrudModule {}
