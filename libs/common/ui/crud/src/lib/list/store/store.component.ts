@@ -1,11 +1,23 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UsersService, UserModel } from '@suite/services';
+import { UserModel, RolModel } from '@suite/services';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ToastController, LoadingController } from '@ionic/angular';
 import { Router } from '@angular/router';
+
+import { CrudService } from '../../service/crud.service';
+
+interface FormBuilderInputs {
+  string: [string, Validators[]];
+}
+
+interface FormTypeInputs {
+  name: string;
+  label: string;
+  type: string;
+}
 
 @Component({
   selector: 'suite-ui-crud-store',
@@ -14,20 +26,21 @@ import { Router } from '@angular/router';
 })
 export class StoreComponent implements OnInit {
   @Input() title = '';
-  @Input() formInputs: {
-    [name: string]: [string, Validators[]];
-  };
+  @Input() formBuilderDataInputs: FormBuilderInputs;
+  @Input() formBuilderTemplateInputs: FormTypeInputs[];
   @Input() validators: {
     validator: any;
   };
+  @Input() apiEndpoint: string;
+  @Input() redirectTo: string;
 
-  userForm: FormGroup;
+  storeForm: FormGroup;
   submitted = false;
 
   isLoading = false;
 
   constructor(
-    private usersService: UsersService,
+    private crudService: CrudService,
     private formBuilder: FormBuilder,
     private toastController: ToastController,
     private router: Router,
@@ -35,7 +48,8 @@ export class StoreComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userForm = this.formBuilder.group(this.formInputs, {
+    console.log('formBuilderDataInputs', this.formBuilderDataInputs);
+    this.storeForm = this.formBuilder.group(this.formBuilderDataInputs, {
       validator: MustMatch('password', 'confirmPassword')
     });
     console.log(this.f);
@@ -43,7 +57,7 @@ export class StoreComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() {
-    return this.userForm.controls;
+    return this.storeForm.controls;
   }
 
   onSubmit() {
@@ -52,24 +66,19 @@ export class StoreComponent implements OnInit {
     console.log('submitted');
 
     // stop here if form is invalid
-    if (this.userForm.invalid) {
+    if (this.storeForm.invalid) {
       return;
     }
 
     this.presentLoading();
-    const user: UserModel.User = {
-      name: this.userForm.get('name').value,
-      email: this.userForm.get('email').value,
-      password: this.userForm.get('password').value
-    };
 
-    this.usersService
-      .postStore(user)
+    this.crudService
+      .postStore(this.storeForm.value, this.apiEndpoint)
       .then((data: Observable<HttpResponse<UserModel.ResponseStore>>) => {
         data.subscribe(
           (res: HttpResponse<UserModel.ResponseStore>) => {
             this.dismissLoading();
-            this.router.navigate(['users']);
+            this.router.navigate([this.redirectTo]);
             this.presentToast(`Usuario ${res.body.data.name} creado`);
           },
           (errorResponse: HttpErrorResponse) => {
