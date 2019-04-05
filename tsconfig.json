@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@suite/services": ["libs/services/src/index.ts"]
+      "@suite/services": ["libs/services/src/index.ts"],
+      "@suite/common/ui/crud": ["libs/common/ui/crud/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

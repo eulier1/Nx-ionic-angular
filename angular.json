@@ -329,6 +329,37 @@
           "styleext": "scss"
         }
       }
+    },
+    "common-ui-crud": {
+      "root": "libs/common/ui/crud",
+      "sourceRoot": "libs/common/ui/crud/src",
+      "projectType": "library",
+      "prefix": "suite",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/common/ui/crud/tsconfig.lib.json",
+              "libs/common/ui/crud/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/common/ui/crud/src/test.ts",
+            "tsConfig": "libs/common/ui/crud/tsconfig.spec.json",
+            "karmaConfig": "libs/common/ui/crud/karma.conf.js"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "styleext": "scss"
+        }
+      }
     }
   },
   "cli": {

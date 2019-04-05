@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {
   trigger,
   state,
@@ -8,7 +8,8 @@ import {
 } from '@angular/animations';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material';
-import { UserModel, UsersService } from '@suite/services';
+import { UserModel, RolModel } from '@suite/services';
+import { CrudService } from '../service/crud.service';
 import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
@@ -20,9 +21,9 @@ import {
 } from '@ionic/angular';
 
 @Component({
-  selector: 'suite-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+  selector: 'suite-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
   animations: [
     trigger('EnterLeave', [
       state('flyIn', style({ transform: 'translateY(0)' })),
@@ -36,37 +37,38 @@ import {
     ])
   ]
 })
-export class UsersComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'email', 'select'];
-  columns: string[] = ['id', 'name', 'email'];
-  user: UserModel.User = { id: 0, name: '', password: '', email: '' };
-  apiEndpoint = 'Users';
-  title = 'Usuarios';
+export class ListComponent implements OnInit {
+  @Input() dataType: UserModel.User | RolModel.Rol;
+  @Input() title: string;
+  @Input() apiEndpoint: string;
+  @Input() dataColumns: string[];
+  @Input() displayedColumns: string[];
 
-  dataSource: UserModel.User[] = [];
-  selection = new SelectionModel<UserModel.User>(true, []);
+  // Presentation Layer
+  dataSource: UserModel.User[] | RolModel.Rol[] = [];
+  selection = new SelectionModel<UserModel.User | RolModel.Rol>(true, []);
   navStart: Observable<NavigationStart>;
 
   showDeleteButton = false;
   isLoading = false;
 
   constructor(
-    private userService: UsersService,
+    private crudService: CrudService,
     private router: Router,
     private alertController: AlertController,
     private toastController: ToastController,
     public loadingController: LoadingController
   ) {
     console.log(this.dataSource);
-
+    console.log('LIST COMPONENT');
     // Create a new Observable that publishes only the NavigationStart event
     this.navStart = router.events.pipe(
       filter(evt => evt instanceof NavigationEnd)
     ) as Observable<NavigationEnd>;
-    this.initUsers();
   }
 
   ngOnInit() {
+    this.initUsers();
     this.navStart.subscribe(evt => {
       console.log(evt);
       if (evt.url === '/users') {
@@ -76,8 +78,8 @@ export class UsersComponent implements OnInit {
   }
 
   initUsers() {
-    this.userService
-      .getIndex()
+    this.crudService
+      .getIndex(this.apiEndpoint)
       .then((data: Observable<HttpResponse<UserModel.ResponseIndex>>) => {
         data.subscribe((res: HttpResponse<UserModel.ResponseIndex>) => {
           this.dataSource = res.body.data;
@@ -170,8 +172,8 @@ export class UsersComponent implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             this.presentLoading();
-            this.userService
-              .deleteDestroy(this.selection.selected)
+            this.crudService
+              .deleteDestroy(this.selection.selected, this.apiEndpoint)
               .then(
                 (
                   data: Observable<HttpResponse<UserModel.ResponseDestroy>>[]

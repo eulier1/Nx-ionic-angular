@@ -8,6 +8,7 @@ import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
 import { StoreComponent } from './store/store.component';
 import { UpdateComponent } from './update/update.component';
+import { CommonUiCrudModule } from '@suite/common/ui/crud';
 
 @NgModule({
   declarations: [UsersComponent, StoreComponent, UpdateComponent],
@@ -18,6 +19,7 @@ import { UpdateComponent } from './update/update.component';
     MatTableModule,
     MatCheckboxModule,
     UsersRoutingModule,
+    CommonUiCrudModule,
     CdkTableModule
   ]
 })
