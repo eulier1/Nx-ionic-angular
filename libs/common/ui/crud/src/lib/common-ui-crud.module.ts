@@ -8,6 +8,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { ListComponent } from './list/list.component';
 import { StoreComponent } from './list/store/store.component';
 import { UpdateComponent } from './list/update/update.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { UpdateComponent } from './list/update/update.component';
     ReactiveFormsModule,
     IonicModule,
     MatTableModule,
+    MatListModule,
     MatCheckboxModule,
     CdkTableModule,
     RouterModule.forChild([{ path: '', component: ListComponent }])

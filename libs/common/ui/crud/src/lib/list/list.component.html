@@ -16,7 +16,7 @@
     <tr
       mat-row
       *matRowDef="let row; columns: displayedColumns"
-      [routerLink]="['/users/store', row.id]"
+      (click)="goToUpdate(row.id)"
       style="cursor: pointer"
     ></tr>
 
@@ -58,7 +58,7 @@
     </ion-col>
     <ion-col size="2" size-xs>
       <ion-fab>
-        <ion-fab-button [routerLink]="['/users/store']">
+        <ion-fab-button (click)="goToStore()">
           <ion-icon name="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>

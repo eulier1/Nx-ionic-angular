@@ -24,6 +24,7 @@ interface FormTypeInputs {
   name: string;
   label: string;
   type: string;
+  value?: any;
 }
 
 @Component({
@@ -40,14 +41,21 @@ export class UpdateComponent implements OnInit {
   };
   @Input() apiEndpoint: string;
   @Input() redirectTo: string;
+  @Input() customValidators: {
+    name: string;
+    params: any[];
+  } = {
+    name: '',
+    params: []
+  };
 
   paramId: string | number;
+  validator = {};
 
   //Presentation Layer
   updateForm: FormGroup;
   submitted = false;
   isLoading = false;
-  navStart: Observable<NavigationStart>;
 
   constructor(
     private crudService: CrudService,
@@ -56,22 +64,32 @@ export class UpdateComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private loadingController: LoadingController
-  ) {
-    this.navStart = router.events.pipe(
-      filter(evt => evt instanceof NavigationEnd)
-    ) as Observable<NavigationEnd>;
-  }
+  ) {}
 
   ngOnInit() {
-    this.updateForm = this.formBuilder.group(this.formBuilderDataInputs, {
-      validator: MustMatch('password', 'confirmPassword')
-    });
+    this.initCustomValidators();
+    this.updateForm = this.formBuilder.group(
+      this.formBuilderDataInputs,
+      this.validator
+    );
     this.getUser();
   }
 
   // convenience getter for easy access to form fields
   get f() {
     return this.updateForm.controls;
+  }
+
+  initCustomValidators() {
+    if (this.customValidators.name === 'MustMach') {
+      this.validator = {
+        validator: MustMatch('password', 'confirmPassword')
+      };
+    }
+  }
+
+  goToList() {
+    this.router.navigate([`${this.redirectTo}`]);
   }
 
   getUser() {

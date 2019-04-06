@@ -1,4 +1,4 @@
-<div>
+<ion-content>
   <ion-text color="primary">
     <h1>{{ title }}</h1>
   </ion-text>
@@ -6,6 +6,7 @@
     <ion-grid class="wrapper-form">
       <ion-row class="input-wrapper">
         <ion-col *ngFor="let input of formBuilderTemplateInputs">
+          <!-- Input per Type -->
           <div *ngIf="input.type === 'text'">
             <ion-item lines="full">
               <ion-icon name="person"></ion-icon
@@ -29,6 +30,18 @@
               ></ion-input>
             </ion-item>
           </div>
+          <div *ngIf="input.type === 'checkbox'">
+            <mat-selection-list>
+              <mat-list-option
+                [selected]="f[input.value]"
+                [value]="f[input.value]"
+              >
+                {{ input.label }}
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+          <!-- End Input per Type -->
+          <!-- Special Cases -->
           <div *ngIf="input.name === 'password'">
             <ion-item>
               <ion-icon name="lock"></ion-icon>
@@ -91,22 +104,23 @@
               </ion-icon>
             </ion-item>
           </div>
+          <!-- End Special Cases -->
         </ion-col>
       </ion-row>
     </ion-grid>
   </form>
-  <ion-footer>
-    <ion-toolbar>
-      <ion-button slot="end" color="light" [routerLink]="['/users']"
-        >Cancelar</ion-button
-      >
-      <ion-button
-        slot="end"
-        color="primary"
-        [disabled]="updateForm.invalid"
-        (click)="onSubmit()"
-        >Guardar</ion-button
-      >
-    </ion-toolbar>
-  </ion-footer>
-</div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button slot="end" color="light" (click)="goToList()"
+      >Cancelar</ion-button
+    >
+    <ion-button
+      slot="end"
+      color="primary"
+      [disabled]="updateForm.invalid"
+      (click)="onSubmit()"
+      >Guardar</ion-button
+    >
+  </ion-toolbar>
+</ion-footer>

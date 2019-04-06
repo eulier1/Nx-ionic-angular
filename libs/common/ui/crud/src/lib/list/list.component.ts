@@ -38,21 +38,6 @@ import {
   ]
 })
 export class ListComponent implements OnInit {
-  @Input() dataType: UserModel.User | RolModel.Rol;
-  @Input() title: string;
-  @Input() apiEndpoint: string;
-  @Input() dataColumns: string[];
-  @Input() displayedColumns: string[];
-  @Input() routePath: string;
-
-  // Presentation Layer
-  dataSource: UserModel.User[] | RolModel.Rol[] = [];
-  selection = new SelectionModel<UserModel.User | RolModel.Rol>(true, []);
-  navStart: Observable<NavigationStart>;
-
-  showDeleteButton = false;
-  isLoading = false;
-
   constructor(
     private crudService: CrudService,
     private router: Router,
@@ -68,12 +53,28 @@ export class ListComponent implements OnInit {
     ) as Observable<NavigationEnd>;
   }
 
+  @Input() title: string;
+  @Input() apiEndpoint: string;
+  @Input() dataColumns: string[];
+  @Input() displayedColumns: string[];
+  @Input() routePath: string;
+
+  // Presentation Layer
+  dataSource: any[] = [];
+  selection = new SelectionModel<UserModel.User | RolModel.Rol>(true, []);
+  navStart: Observable<NavigationStart>;
+  routerTo: string;
+
+  showDeleteButton = false;
+  isLoading = false;
+
   ngOnInit() {
     this.initUsers();
     this.navStart.subscribe(evt => {
       console.log(evt);
       if (evt.url === this.routePath) {
         this.initUsers();
+        this.routerTo = `${this.routePath}/store`;
       }
     });
   }
@@ -81,14 +82,37 @@ export class ListComponent implements OnInit {
   initUsers() {
     this.crudService
       .getIndex(this.apiEndpoint)
-      .then((data: Observable<HttpResponse<UserModel.ResponseIndex>>) => {
-        data.subscribe((res: HttpResponse<UserModel.ResponseIndex>) => {
-          this.dataSource = res.body.data;
-          console.log(this.dataSource);
-        });
-      });
-    this.selection = new SelectionModel<UserModel.User>(true, []);
+      .then(
+        (
+          data: Observable<
+            HttpResponse<UserModel.ResponseIndex | RolModel.ResponseIndex>
+          >
+        ) => {
+          data.subscribe(
+            (
+              res: HttpResponse<
+                UserModel.ResponseIndex | RolModel.ResponseIndex
+              >
+            ) => {
+              this.dataSource = res.body.data;
+              console.log(this.dataSource);
+            }
+          );
+        }
+      );
+    this.selection = new SelectionModel<UserModel.User | RolModel.Rol>(
+      true,
+      []
+    );
     this.showDeleteButton = false;
+  }
+
+  goToStore() {
+    this.router.navigate([`${this.routePath}/store`]);
+  }
+
+  goToUpdate(id: number | string) {
+    this.router.navigate([`${this.routePath}/store`, id]);
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -102,7 +126,9 @@ export class ListComponent implements OnInit {
   masterToggle() {
     this.isAllSelected()
       ? this.selection.clear()
-      : this.dataSource.forEach(row => this.selection.select(row));
+      : this.dataSource.forEach((row: UserModel.User | RolModel.Rol) =>
+          this.selection.select(row)
+        );
 
     this.isAllSelected()
       ? (this.showDeleteButton = true)
@@ -110,7 +136,7 @@ export class ListComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: UserModel.User): string {
+  checkboxLabel(row?: UserModel.User | RolModel.Rol): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -119,7 +145,7 @@ export class ListComponent implements OnInit {
     } row ${row.id + 1}`;
   }
 
-  checkSelection(row?: UserModel.User) {
+  checkSelection(row?: UserModel.User | RolModel.Rol) {
     this.selection.toggle(row);
     if (this.selection.selected.length > 0) {
       this.showDeleteButton = true;
@@ -135,7 +161,9 @@ export class ListComponent implements OnInit {
     console.log('confirmDelete', this.selection.selected);
   }
 
-  async presentUsertDeleteAlert(selectedUsers: SelectionModel<UserModel.User>) {
+  async presentUsertDeleteAlert(
+    selectedUsers: SelectionModel<UserModel.User | RolModel.Rol>
+  ) {
     let header = '';
     let msg = '';
     let successMsg = '';

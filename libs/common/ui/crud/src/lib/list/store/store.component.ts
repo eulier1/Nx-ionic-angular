@@ -17,6 +17,7 @@ interface FormTypeInputs {
   name: string;
   label: string;
   type: string;
+  value?: any;
 }
 
 @Component({
@@ -28,16 +29,21 @@ export class StoreComponent implements OnInit {
   @Input() title = '';
   @Input() formBuilderDataInputs: FormBuilderInputs;
   @Input() formBuilderTemplateInputs: FormTypeInputs[];
-  @Input() validators: {
-    validator: any;
+  @Input() customValidators: {
+    name: string;
+    params: any[];
+  } = {
+    name: '',
+    params: []
   };
   @Input() apiEndpoint: string;
   @Input() redirectTo: string;
 
+  //Presentation Layer
   storeForm: FormGroup;
   submitted = false;
-
   isLoading = false;
+  validator = {};
 
   constructor(
     private crudService: CrudService,
@@ -49,15 +55,29 @@ export class StoreComponent implements OnInit {
 
   ngOnInit() {
     console.log('formBuilderDataInputs', this.formBuilderDataInputs);
-    this.storeForm = this.formBuilder.group(this.formBuilderDataInputs, {
-      validator: MustMatch('password', 'confirmPassword')
-    });
+    this.initCustomValidators();
+    this.storeForm = this.formBuilder.group(
+      this.formBuilderDataInputs,
+      this.validator
+    );
     console.log(this.f);
   }
 
   // convenience getter for easy access to form fields
   get f() {
     return this.storeForm.controls;
+  }
+
+  initCustomValidators() {
+    if (this.customValidators.name === 'MustMach') {
+      this.validator = {
+        validator: MustMatch('password', 'confirmPassword')
+      };
+    }
+  }
+
+  goToList() {
+    this.router.navigate([`${this.redirectTo}`]);
   }
 
   onSubmit() {

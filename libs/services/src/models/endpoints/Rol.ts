@@ -2,6 +2,8 @@ export namespace RolModel {
   export interface Rol {
     id?: number;
     name: string;
+    sga_allowed?: true;
+    app_allowed?: true;
   }
   export interface ResponseIndex {
     data: Rol[];

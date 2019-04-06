@@ -37,7 +37,15 @@ export class StoreComponent implements OnInit {
   ];
   title = 'Crear Usuario';
   apiEndpoint = 'Users';
-  redirectTo = 'users';
+  redirectTo = '/users';
+
+  customValidators: {
+    name: string;
+    params: [];
+  } = {
+    name: 'MustMach',
+    params: []
+  };
 
   constructor() {}
 

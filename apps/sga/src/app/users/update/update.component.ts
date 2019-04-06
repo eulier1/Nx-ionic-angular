@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { COLLECTIONS } from 'config/base';
 
 @Component({
   selector: 'suite-update',
@@ -36,8 +37,17 @@ export class UpdateComponent implements OnInit {
     }
   ];
   title = 'Actualizar Usuario';
-  apiEndpoint = 'Users';
+  apiEndpoint = COLLECTIONS.find(collection => collection.name === 'Users')
+    .name;
   redirectTo = 'users';
+  routePath = '/users';
+  customValidators: {
+    name: string;
+    params: [];
+  } = {
+    name: 'MustMach',
+    params: []
+  };
 
   constructor() {}
 
