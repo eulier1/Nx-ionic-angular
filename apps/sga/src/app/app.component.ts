@@ -52,11 +52,6 @@ export class AppComponent implements OnInit {
       icon: 'person'
     },
     {
-      title: 'CRUD Test',
-      url: '/crud',
-      icon: 'person'
-    },
-    {
       title: 'Logout',
       url: '/home',
       icon: 'log-out'
@@ -76,7 +71,6 @@ export class AppComponent implements OnInit {
     private loginService: Oauth2Service,
     private authenticationService: AuthenticationService
   ) {
-    this.initializeApp();
     this.menu.enable(false, 'sidebar');
   }
 
@@ -84,11 +78,11 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-
+      this.menu.enable(false, 'sidebar');
       /* Check for Authenticated user */
       this.authenticationService.authenticationState.subscribe(state => {
         if (state) {
-          this.router.navigate(['roles']);
+          this.router.navigate(['users']);
           this.menu.enable(true, 'sidebar');
         } else {
           this.router.navigate(['login']);
@@ -98,7 +92,9 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.initializeApp();
+  }
 
   tapOption(p: MenuItem) {
     console.log(p);

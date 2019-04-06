@@ -2,25 +2,31 @@
   <ion-split-pane>
     <ion-menu menuId="sidebar">
       <ion-header>
-        <ion-toolbar>
-          <ion-title>Menu</ion-title>
+        <ion-toolbar color="primary">
+          <ion-title>
+            <ion-icon name="menu"></ion-icon>
+            <img
+              class="ion-padding-start"
+              src="../assets/img/Krack-Logo.svg"
+              width="125vw"
+              alt="krack logo sidebar"
+            />
+          </ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+          <ion-list no-padding lines="none">
             <ion-item
               [routerDirection]="'root'"
               [routerLink]="[p.url]"
               (click)="tapOption(p)"
             >
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{ p.title }}
-              </ion-label>
+              <ion-label> {{ p.title }} </ion-label>
             </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+          </ion-list>
+        </ion-menu-toggle>
       </ion-content>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
