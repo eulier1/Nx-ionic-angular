@@ -2,7 +2,8 @@ import {
   API,
   HeaderEntity,
   Auth1,
-  Body
+  Body,
+  ItemEntity
 } from './postman/Api.Team.postman_collection';
 import { ServerPostmanEnvironment } from './postman/Server.postman_environment';
 // @ts-ignore
@@ -45,15 +46,17 @@ export const BODY: Body | any = (collection: string, requestName: string) =>
     .find(it => it.name === collection)
     .item.find(it => it.name === requestName).request.body;
 
+export const COLLECTIONS: ItemEntity[] = API_BASE.item;
+
 export namespace AppInfo {
   export enum ClientSecretSGA {
-    Username = 'tester',
-    Password = 'secret'
+    Username = 'krack-client-sga',
+    Password = 'fGx4=yU-j4^jAAjZtV+YTDsm-@R$HAK3'
   }
 
   export enum ClientSecretAL {
-    Username = 'tester',
-    Password = 'secret'
+    Username = 'krack-client-al',
+    Password = 'k4a4yBrqW54L@uX_^p8EMGDFb?qj*TKe'
   }
 
   export enum Name {

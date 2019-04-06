@@ -1,0 +1,124 @@
+<ion-content>
+  <ion-text color="primary">
+    <h1>{{ title }}</h1>
+  </ion-text>
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+    <ion-grid class="wrapper-form">
+      <ion-row class="input-wrapper">
+        <ion-col *ngFor="let input of formBuilderTemplateInputs">
+          <!-- Input per Type -->
+          <div *ngIf="input.type === 'text'">
+            <ion-item lines="full">
+              <ion-icon name="person"></ion-icon
+              ><ion-input
+                placeholder="{{input.label}}"
+                class="ion-margin-horizontal"
+                type="{{input.type}}"
+                [formControl]="f[input.name]"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <div *ngIf="input.type === 'email'">
+            <ion-item lines="full">
+              <ion-icon name="mail"></ion-icon
+              ><ion-input
+                placeholder="{{input.label}}"
+                class="ion-margin-horizontal"
+                type="{{input.type}}"
+                email
+                [formControl]="f[input.name]"
+              ></ion-input>
+            </ion-item>
+          </div>
+          <div *ngIf="input.type === 'checkbox'">
+            <mat-checkbox
+              [formControl]="f[input.name]"
+              [checked]="f[input.value]"
+              [value]="f[input.value]"
+              >{{ input.label }}</mat-checkbox
+            >
+          </div>
+          <!-- End Input per Type -->
+          <!-- Special Cases -->
+          <div *ngIf="input.name === 'password'">
+            <ion-item>
+              <ion-icon name="lock"></ion-icon>
+              <ion-input
+                placeholder="{{input.label}}"
+                class="ion-margin-horizontal"
+                type="{{input.type}}"
+                [formControl]="f[input.name]"
+                #passwordInput
+              ></ion-input>
+              <ion-icon
+                *ngIf="passwordInput.type === 'password'"
+                name="eye"
+                (click)="
+                  passwordInput.type === 'password'
+                    ? (passwordInput.type = 'text')
+                    : (passwordInput.type = 'password')
+                "
+              ></ion-icon>
+              <ion-icon
+                *ngIf="passwordInput.type === 'text'"
+                name="eye-off"
+                (click)="
+                  passwordInput.type === 'password'
+                    ? (passwordInput.type = 'text')
+                    : (passwordInput.type = 'password')
+                "
+              >
+              </ion-icon>
+            </ion-item>
+          </div>
+          <div *ngIf="input.name === 'confirmPassword'">
+            <ion-item>
+              <ion-icon name="lock"></ion-icon>
+              <ion-input
+                placeholder="{{input.label}}"
+                class="ion-margin-horizontal"
+                type="{{input.type}}"
+                [formControl]="f[input.name]"
+                #repeatPasswordInput
+              ></ion-input>
+              <ion-icon
+                *ngIf="repeatPasswordInput.type === 'password'"
+                name="eye"
+                (click)="
+                  repeatPasswordInput.type === 'password'
+                    ? (repeatPasswordInput.type = 'text')
+                    : (repeatPasswordInput.type = 'password')
+                "
+              ></ion-icon>
+              <ion-icon
+                *ngIf="repeatPasswordInput.type === 'text'"
+                name="eye-off"
+                (click)="
+                  repeatPasswordInput.type === 'password'
+                    ? (repeatPasswordInput.type = 'text')
+                    : (repeatPasswordInput.type = 'password')
+                "
+              >
+              </ion-icon>
+            </ion-item>
+          </div>
+          <!-- End Special Cases -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button slot="end" color="light" (click)="goToList()"
+      >Cancelar</ion-button
+    >
+    <ion-button
+      slot="end"
+      color="primary"
+      [disabled]="updateForm.invalid"
+      (click)="onSubmit()"
+      >Guardar</ion-button
+    >
+  </ion-toolbar>
+</ion-footer>

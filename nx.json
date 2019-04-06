@@ -22,6 +22,9 @@
     },
     "services": {
       "tags": []
+    },
+    "common-ui-crud": {
+      "tags": []
     }
   }
 }
