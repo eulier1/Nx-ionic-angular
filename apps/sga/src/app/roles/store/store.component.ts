@@ -11,8 +11,8 @@ import { RolModel } from '@suite/services';
 export class StoreComponent implements OnInit {
   formBuilderDataInputs = {
     name: ['', [Validators.required, Validators.minLength(4)]],
-    sga_allowed: [false, []],
-    app_allowed: [false, []]
+    sga_enabled: [false, []],
+    app_enabled: [false, []]
   };
   formBuilderTemplateInputs = [
     {
@@ -21,13 +21,13 @@ export class StoreComponent implements OnInit {
       type: 'text'
     },
     {
-      name: 'sga_allowed',
+      name: 'sga_enabled',
       label: 'Habilitar en SGA',
       type: 'checkbox',
       value: true
     },
     {
-      name: 'app_allowed',
+      name: 'app_enabled',
       label: 'Habilitar en APP',
       type: 'checkbox',
       value: false

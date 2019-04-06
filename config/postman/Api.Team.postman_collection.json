@@ -64,7 +64,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"test\",\n    \"email\": \"testoauth@test.com\",\n    \"password\": \"password\"\n}"
+							"raw": "{\n\t\"email\": \"test@testers.com\",\n\t\"password\": \"password\",\n\t\"name\": \"testest\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/users",
@@ -194,6 +194,94 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Link Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"ivan@ivan.com\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/users/password/email",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"password",
+								"email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"new_password\": \"secret\",\n\t\"check_password\": \"secret\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/users/password/reset?token=f67d562351becf0a404421947aec55d27d2db4978bbdb4bea8da23bd4dae561e",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"password",
+								"reset"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "f67d562351becf0a404421947aec55d27d2db4978bbdb4bea8da23bd4dae561e"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -256,7 +344,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Admin\"\n}"
+							"raw": "{\n    \"name\": \"Supesssr Administrador triple y doble\",\n    \"sga_allowed\": true,\n    \"app_allowed\": true\n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/roles",
@@ -338,17 +426,17 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Moderator\"\n}"
+							"raw": "{\n    \"name\": \"Pro Moderator\",\n    \"sga_allowed\": true,\n    \"app_allowed\": true\n}"
 						},
 						"url": {
-							"raw": "{{url}}/api/roles/2",
+							"raw": "{{url}}/api/roles/7",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"roles",
-								"2"
+								"7"
 							]
 						}
 					},
@@ -381,14 +469,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/api/roles/2",
+							"raw": "{{url}}/api/roles/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"roles",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -397,6 +485,16 @@
 				{
 					"name": "Asignar rol a usuario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -404,16 +502,16 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/api/user/{{uid}}/role/{{rid}}",
+							"raw": "{{url}}/api/users/2/roles/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"user",
-								"{{uid}}",
-								"role",
-								"{{rid}}"
+								"users",
+								"2",
+								"roles",
+								"1"
 							]
 						}
 					},
@@ -422,6 +520,16 @@
 				{
 					"name": "Eliminar rol de usuario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -429,16 +537,16 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/api/user/{{uid}}/role/{{rid}}",
+							"raw": "{{url}}/api/users/2/roles/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"user",
-								"{{uid}}",
-								"role",
-								"{{rid}}"
+								"users",
+								"2",
+								"roles",
+								"1"
 							]
 						}
 					},
@@ -505,7 +613,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"edit_users\"\n}"
+							"raw": "{\n    \"name\": \"index_warehouses\",\n    \"method\": \"GET\",\n    \"route\": \"/api/warehouses\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}/api/permissions",
@@ -523,6 +631,16 @@
 				{
 					"name": "Show",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -617,33 +735,18 @@
 					"response": []
 				},
 				{
-					"name": "Eliminar permiso a rol",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{url}}/api/role/{{rid}}/permission/{{pid}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"role",
-								"{{rid}}",
-								"permission",
-								"{{pid}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Asignar permiso a rol",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -651,20 +754,1240 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/api/role/{{rid}}/permission/{{pid}}",
+							"raw": "{{url}}/api/roles/2/permissions/2",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"role",
-								"{{rid}}",
-								"permission",
-								"{{pid}}"
+								"roles",
+								"2",
+								"permissions",
+								"2"
 							]
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Eliminar permiso a rol",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/roles/2/permissions/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"roles",
+								"2",
+								"permissions",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carriers",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/carriers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"carriers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"reference\": \"J0010\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/carriers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"carriers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/carriers/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"carriers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"reference\": \"TEST01\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/carriers/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"carriers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Destroy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/carriers/4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"carriers",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pallets",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/pallets",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"pallets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reference\": \"P0001\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/pallets",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"pallets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/pallets/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"pallets",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"reference\": \"P0002\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/pallets/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"pallets",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Destroy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/pallets/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"pallets",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "716c14a4-d35b-441e-b56e-7858d400f73a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2338009e-f4f4-4c94-91a9-107b9b465693",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Warehouses",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Warehouse Test\",\n\t\"description\": \"Probando la información del sistema\",\n\t\"reference\": \"455\",\n    \"is_store\": true,\n    \"is_main\": true\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Testing Warehouse\",\n\t\"description\": \"Probando la información del sistema\",\n\t\"reference\": \"W1000\",\n    \"is_store\": true,\n    \"is_main\": false,\n    \"category_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Destroy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Category to Warehouse",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/1/categories/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"1",
+								"categories",
+								"1"
+							]
+						},
+						"description": "Solo se puede agregar una categoría si es un Warehouse de tipo Tienda (Store)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Warehouse from Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/1/categories/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"1",
+								"categories",
+								"1"
+							]
+						},
+						"description": "Solo se puede agregar una categoría si es un Warehouse de tipo Tienda (Store)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Warehouses Categories",
+			"item": [
+				{
+					"name": "Index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Gama Alta\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/categories/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Gama Media\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/categories/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Destroy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/categories/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Warehouses Maps",
+			"item": [
+				{
+					"name": "Configurar almacén",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"columns\": 4,\n\t\"rows\": 4,\n\t\"halls\": 2\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/{{warehouseId}}/config",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"{{warehouseId}}",
+								"config"
+							]
+						},
+						"description": "Crea una nueva configuración de almacén conto a los respectivos estantes y contenedores"
+					},
+					"response": []
+				},
+				{
+					"name": "Listar estantes de un almacén",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/{{warehouseId}}/racks",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"{{warehouseId}}",
+								"racks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar ubicaciones de un almacén",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/warehouses/{{warehouseId}}/containers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"warehouses",
+								"{{warehouseId}}",
+								"containers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar ubicaciones de un estante",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/racks/{{rackId}}/containers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"racks",
+								"{{rackId}}",
+								"containers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar un estante",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/racks/{{rackId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"racks",
+								"{{rackId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar múltiples estantes",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"racks\": [1, 2, 2, 1,3,4]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/racks",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"racks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar ubicación",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/containers/{{containerId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"containers",
+								"{{containerId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deshabilitar ubicación",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"enabled\": false\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/containers/{{containerId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"containers",
+								"{{containerId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Habilitar ubicación",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"enabled\": true\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/containers/{{containerId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"containers",
+								"{{containerId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Redimensionar un estante",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"columns\" : 10,\n\t\"rows\" : 10\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/racks/{{rackId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"racks",
+								"{{rackId}}"
+							]
+						},
+						"description": "Redimensiona un estante. EL cuerpo de la solicitud debe contener las nuevas dimensiones del estante."
+					},
+					"response": []
+				},
+				{
+					"name": "Crear estante",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"columns\" : 3,\n\t\"rows\": 5,\n\t\"warehouse\" : {\n\t\t\"id\" : 5\n\t}\n}"
+						},
+						"url": {
+							"raw": "{{url}}/api/racks/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"racks",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5e1561fe-3f3a-483d-8c66-55a4e53cb6e3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fe06d191-7175-4f92-bca1-3605f84cf6ff",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -692,12 +2015,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "secret",
+									"value": "{{client_secret}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "tester",
+									"value": "{{client_id}}",
 									"type": "string"
 								}
 							]
@@ -721,12 +2044,12 @@
 								},
 								{
 									"key": "username",
-									"value": "conde@montecristo.fr",
+									"value": "admin@krackonline.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "lecomtedemontecristo",
+									"value": "ChangeMe.1234",
 									"type": "text"
 								}
 							]
@@ -803,13 +2126,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/api/me",
+							"raw": "{{url}}/api/profile",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"me"
+								"profile"
 							]
 						}
 					},
@@ -821,14 +2144,14 @@
 			"name": "ACL",
 			"item": [
 				{
-					"name": "Permisos de usuario",
+					"name": "Roles de usuario",
 					"request": {
 						"auth": {
 							"type": "bearer",
 							"bearer": [
 								{
 									"key": "token",
-									"value": "5a8d18ec74d69682471302fc4f1d560ef43379cc",
+									"value": "{{access_token}}",
 									"type": "string"
 								}
 							]
@@ -857,6 +2180,16 @@
 				{
 					"name": "Permisos  del rol",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -864,14 +2197,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{url}}/api/roles/{{rid}}/permissions",
+							"raw": "{{url}}/api/roles/4/permissions",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"roles",
-								"{{rid}}",
+								"4",
 								"permissions"
 							]
 						}
@@ -879,6 +2212,16 @@
 					"response": []
 				}
 			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{access_token}}",
+						"type": "string"
+					}
+				]
+			},
 			"event": [
 				{
 					"listen": "prerequest",
@@ -894,6 +2237,165 @@
 					"listen": "test",
 					"script": {
 						"id": "37b61feb-d10d-4c24-9b4a-602c974dfd3f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Types",
+			"item": [
+				{
+					"name": "Picking",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/types/picking",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"types",
+								"picking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/types/product",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"types",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Process",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/types/process",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"types",
+								"process"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/api/types/process",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"types",
+								"process"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "716c14a4-d35b-441e-b56e-7858d400f73a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2338009e-f4f4-4c94-91a9-107b9b465693",
 						"type": "text/javascript",
 						"exec": [
 							""

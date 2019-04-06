@@ -50,13 +50,13 @@ export const COLLECTIONS: ItemEntity[] = API_BASE.item;
 
 export namespace AppInfo {
   export enum ClientSecretSGA {
-    Username = 'tester',
-    Password = 'secret'
+    Username = 'krack-client-sga',
+    Password = 'fGx4=yU-j4^jAAjZtV+YTDsm-@R$HAK3'
   }
 
   export enum ClientSecretAL {
-    Username = 'tester',
-    Password = 'secret'
+    Username = 'krack-client-al',
+    Password = 'k4a4yBrqW54L@uX_^p8EMGDFb?qj*TKe'
   }
 
   export enum Name {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { Validators, FormControl, FormArray } from '@angular/forms';
 import { COLLECTIONS } from 'config/base';
 
 @Component({
@@ -8,11 +8,6 @@ import { COLLECTIONS } from 'config/base';
   styleUrls: ['./update.component.scss']
 })
 export class UpdateComponent implements OnInit {
-  formBuilderDataInputs = {
-    name: ['', [Validators.required, Validators.minLength(4)]],
-    sga_allowed: [false, []],
-    app_allowed: [false, []]
-  };
   formBuilderTemplateInputs = [
     {
       name: 'name',
@@ -20,18 +15,23 @@ export class UpdateComponent implements OnInit {
       type: 'text'
     },
     {
-      name: 'sga_allowed',
-      label: 'Habilitar en SGA',
+      name: 'sga_enabled',
+      label: 'Habilitar SGA',
       type: 'checkbox',
-      value: true
+      value: false
     },
     {
-      name: 'app_allowed',
-      label: 'Habilitar en APP',
+      name: 'app_enabled',
+      label: 'Habilitar APP',
       type: 'checkbox',
       value: false
     }
   ];
+  formBuilderDataInputs = {
+    name: ['', [Validators.required, Validators.minLength(4)]],
+    sga_enabled: [this.formBuilderTemplateInputs[1].value, []],
+    app_enabled: [this.formBuilderTemplateInputs[2].value, []]
+  };
   title = 'Actualizar Rol';
   apiEndpoint = COLLECTIONS.find(collection => collection.name === 'Roles')
     .name;

@@ -11,7 +11,7 @@ export class UsersComponent implements OnInit {
   title = 'Usuarios';
   displayedColumns: string[] = ['id', 'name', 'email', 'select'];
   columns: string[] = ['id', 'name', 'email'];
-  apiEndpoint = COLLECTIONS.find(collection => collection.name === 'Roles')
+  apiEndpoint = COLLECTIONS.find(collection => collection.name === 'Users')
     .name;
   routePath = '/users';
 

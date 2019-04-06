@@ -73,6 +73,7 @@ export class UpdateComponent implements OnInit {
       this.validator
     );
     this.getUser();
+    console.log(this.updateForm);
   }
 
   // convenience getter for easy access to form fields
@@ -123,6 +124,8 @@ export class UpdateComponent implements OnInit {
                         }
                       }
 
+                      console.log('updateFormValue', updateFormValue);
+
                       this.updateForm.patchValue(updateFormValue);
                     },
                     (errorResponse: HttpErrorResponse) => {
@@ -149,7 +152,15 @@ export class UpdateComponent implements OnInit {
       return;
     }
 
+    this.formBuilderTemplateInputs.map((input, i) => {
+      if (input.type === 'checkbox') {
+        console.log(input.name, this.updateForm.get(input.name));
+      }
+    });
+
     const dataToUpdate = { ...this.updateForm.value, id: this.paramId };
+
+    console.log('dataToUpdate', this.updateForm.value);
 
     this.presentLoading();
 

@@ -221,8 +221,8 @@ export class ListComponent implements OnInit {
                             }`
                           );
                           this.presentToast(successMsg);
-                          this.dismissLoading();
                           this.initUsers();
+                          this.dismissLoading();
                         },
                         (errorResponse: HttpErrorResponse) => {
                           this.presentToast(errorResponse.message);
