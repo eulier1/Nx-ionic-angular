@@ -16,7 +16,7 @@ import { AuthenticationService } from '@suite/services';
 
 interface MenuItem {
   title: string;
-  url: string;
+  url?: string;
   icon: string;
 }
 
@@ -53,7 +53,6 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Logout',
-      url: '/home',
       icon: 'log-out'
     }
   ];
@@ -61,7 +60,12 @@ export class AppComponent implements OnInit {
   navStart: Observable<NavigationStart>;
   navResStart: Observable<ResolveStart>;
   navResEnd: Observable<ResolveEnd>;
-  showMainHeader: boolean = false
+
+  // Presentation layer
+  showMainHeader = false;
+  showSidebar = false;
+  displaySmallSidebar = false;
+  iconsDirection = 'start';
 
   constructor(
     private platform: Platform,
@@ -76,6 +80,9 @@ export class AppComponent implements OnInit {
   }
 
   initializeApp() {
+    this.showMainHeader = false;
+    this.displaySmallSidebar = false;
+    this.showSidebar = false;
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
@@ -83,13 +90,14 @@ export class AppComponent implements OnInit {
       /* Check for Authenticated user */
       this.authenticationService.authenticationState.subscribe(state => {
         if (state) {
-          this.showMainHeader = true
-          this.router.navigate(['users']);
-          this.menu.enable(true, 'sidebar');
+          this.router.navigate(['users']).then(sucess => {
+            this.showMainHeader = true;
+            this.menu.enable(true, 'sidebar');
+          });
         } else {
-          this.showMainHeader = false
-          this.router.navigate(['login']);
           this.menu.enable(false, 'sidebar');
+          this.showMainHeader = false;
+          this.router.navigate(['login']);
         }
       });
     });
@@ -111,5 +119,12 @@ export class AppComponent implements OnInit {
           });
       });
     }
+  }
+
+  toggleSidebar() {
+    this.displaySmallSidebar = !this.displaySmallSidebar;
+    this.displaySmallSidebar === true
+      ? (this.iconsDirection = 'end')
+      : (this.iconsDirection = 'start');
   }
 }

@@ -1,16 +1,50 @@
-.mainheader {
-  padding-left: 28%;
+:root {
+  --timing: 0.35s;
 }
 
-@media (max-width: 991px) {
-    .mainheader {
-        padding-left: 0;
-    }
-
+.mainheader {
+  margin-left: 28%;
+  padding-right: 28%;
+  transition: all var(--timing) 0.1s ease-out;
 }
 
 ion-router-outlet {
   margin-top: 3.5rem !important;
-  margin-left: 2rem;
-  margin-right: .5rem;
+  margin-left: 2rem !important;
+  transition: all var(--timing) ease-in-out;
+}
+
+.sidebar {
+  transition: all var(--timing) 0.1s ease-out;
+
+  ion-header {
+    transition: all var(--timing) ease-in-out;
+  }
+}
+
+@media (min-width: 992px) {
+  .sm-custom {
+    .mainheader {
+      margin-left: 56px;
+      padding-right: 56px;
+      transition: all var(--timing) ease-in-out;
+    }
+
+    .sidebar {
+      min-width: 65px !important;
+      max-width: 73px !important;
+      margin-left: -1rem;
+      transition: all var(--timing) ease-in-out;
+
+      ion-header {
+        margin-left: 15px !important;
+        transition: all var(--timing) ease-in-out;
+      }
+    }
+  }
+}
+
+.fadeout {
+  opacity: 0;
+  transition: all;
 }

@@ -1,5 +1,5 @@
-<ion-app>
-  <ion-header class="mainheader" *ngIf="showMainHeader">
+<ion-app [ngClass]="{ 'sm-custom': displaySmallSidebar }">
+  <ion-header *ngIf="showMainHeader" [ngClass]="{ mainheader: showMainHeader }">
     <ion-toolbar color="primary">
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
@@ -19,12 +19,13 @@
     </ion-toolbar>
   </ion-header>
   <ion-split-pane>
-    <ion-menu menuId="sidebar">
-      <ion-header>
+    <ion-menu menuId="sidebar" class="sidebar">
+      <ion-header (click)="toggleSidebar()">
         <ion-toolbar color="primary">
           <ion-title>
-            <ion-icon name="menu"></ion-icon>
+            <ion-icon name="menu" padding-right></ion-icon>
             <img
+              *ngIf="!displaySmallSidebar"
               class="ion-padding-start"
               src="../assets/img/Krack-Logo.svg"
               width="125vw"
@@ -41,8 +42,10 @@
               [routerLink]="[p.url]"
               (click)="tapOption(p)"
             >
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label> {{ p.title }} </ion-label>
+              <ion-icon [slot]="iconsDirection" [name]="p.icon"></ion-icon>
+              <ion-label [ngClass]="{ fadeout: iconsDirection === 'end' }">
+                {{ p.title }}
+              </ion-label>
             </ion-item>
           </ion-list>
         </ion-menu-toggle>
