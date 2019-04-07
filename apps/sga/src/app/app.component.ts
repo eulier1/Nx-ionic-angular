@@ -67,6 +67,7 @@ export class AppComponent implements OnInit {
   displaySmallSidebar = false;
   iconsDirection = 'start';
   currentRoute: string = this.appPages[1].title;
+  deploySidebarSmallDevices = false;
 
   constructor(
     private platform: Platform,
@@ -88,6 +89,12 @@ export class AppComponent implements OnInit {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.menu.enable(false, 'sidebar');
+
+      // Display button for small device to toggle sidemenu from main-header
+      window.innerWidth < 992
+        ? (this.deploySidebarSmallDevices = true)
+        : (this.deploySidebarSmallDevices = false);
+
       /* Check for Authenticated user */
       this.authenticationService.authenticationState.subscribe(state => {
         if (state) {
@@ -128,5 +135,19 @@ export class AppComponent implements OnInit {
     this.displaySmallSidebar === true
       ? (this.iconsDirection = 'end')
       : (this.iconsDirection = 'start');
+  }
+
+  onResize(event) {
+    event.target.innerWidth < 992
+      ? ((this.deploySidebarSmallDevices = true),
+        (this.displaySmallSidebar = true),
+        (this.iconsDirection = 'start'))
+      : ((this.deploySidebarSmallDevices = false),
+        (this.displaySmallSidebar = true),
+        (this.iconsDirection = 'end'));
+  }
+
+  toggleSidebarSmallDevices() {
+    this.menu.toggle('sidebar');
   }
 }

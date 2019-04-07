@@ -27,6 +27,7 @@ ion-router-outlet {
   }
 }
 
+// lg or above screen
 @media (min-width: 992px) {
   .sm-custom {
     .mainheader {
@@ -54,6 +55,15 @@ ion-router-outlet {
   }
 }
 
+// lg below screen
+@media (max-width: 991px) {
+  .mainheader {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+// animations
 .fadeout {
   opacity: 0;
   transition: all;
