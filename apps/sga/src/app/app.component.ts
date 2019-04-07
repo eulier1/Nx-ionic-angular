@@ -61,6 +61,7 @@ export class AppComponent implements OnInit {
   navStart: Observable<NavigationStart>;
   navResStart: Observable<ResolveStart>;
   navResEnd: Observable<ResolveEnd>;
+  showMainHeader: boolean = false
 
   constructor(
     private platform: Platform,
@@ -82,9 +83,11 @@ export class AppComponent implements OnInit {
       /* Check for Authenticated user */
       this.authenticationService.authenticationState.subscribe(state => {
         if (state) {
+          this.showMainHeader = true
           this.router.navigate(['users']);
           this.menu.enable(true, 'sidebar');
         } else {
+          this.showMainHeader = false
           this.router.navigate(['login']);
           this.menu.enable(false, 'sidebar');
         }

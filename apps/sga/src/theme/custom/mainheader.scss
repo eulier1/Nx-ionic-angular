@@ -1,0 +1,16 @@
+.mainheader {
+  padding-left: 28%;
+}
+
+@media (max-width: 991px) {
+    .mainheader {
+        padding-left: 0;
+    }
+
+}
+
+ion-router-outlet {
+  margin-top: 3.5rem !important;
+  margin-left: 2rem;
+  margin-right: .5rem;
+}
