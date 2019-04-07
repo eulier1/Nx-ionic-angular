@@ -6,6 +6,11 @@
   margin-left: 28%;
   padding-right: 28%;
   transition: all var(--timing) 0.1s ease-out;
+
+  .toogleArrow {
+    transform: rotate(0deg);
+    transition: all var(--timing) 0.1s ease-out;
+  }
 }
 
 ion-router-outlet {
@@ -28,6 +33,11 @@ ion-router-outlet {
       margin-left: 56px;
       padding-right: 56px;
       transition: all var(--timing) ease-in-out;
+
+      .toogleArrow {
+        transform: rotate(180deg);
+        transition: all var(--timing) ease-in-out;
+      }
     }
 
     .sidebar {

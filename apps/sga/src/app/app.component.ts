@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
       icon: 'home'
     },
     {
-      title: 'Users',
+      title: 'Usuarios',
       url: '/users',
       icon: 'people'
     },
@@ -66,6 +66,7 @@ export class AppComponent implements OnInit {
   showSidebar = false;
   displaySmallSidebar = false;
   iconsDirection = 'start';
+  currentRoute: string = this.appPages[1].title;
 
   constructor(
     private platform: Platform,
@@ -109,6 +110,7 @@ export class AppComponent implements OnInit {
 
   tapOption(p: MenuItem) {
     console.log(p);
+    this.currentRoute = p.title;
     if (p.title === 'Logout') {
       this.authenticationService.getCurrentToken().then(accessToken => {
         this.loginService

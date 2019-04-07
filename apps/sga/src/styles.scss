@@ -41,6 +41,7 @@ $sga-theme: mat-light-theme($sga-primary, $sga-accent, $sga-warn);
 @import './theme/custom/ion-item.scss';
 @import './theme/custom/mainheader.scss';
 @import './theme/variables.scss';
+@import './theme/custom/crud-component.scss';
 
 html,
 body {

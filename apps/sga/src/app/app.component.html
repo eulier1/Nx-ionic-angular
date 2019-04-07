@@ -2,9 +2,11 @@
   <ion-header *ngIf="showMainHeader" [ngClass]="{ mainheader: showMainHeader }">
     <ion-toolbar color="primary">
       <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
+        <ion-button (click)="toggleSidebar()">
+          <ion-icon name="arrow-round-back" class="toogleArrow"></ion-icon>
+        </ion-button>
       </ion-buttons>
-      <ion-title></ion-title>
+      <ion-title>{{ currentRoute }}</ion-title>
       <ion-buttons slot="secondary">
         <ion-button>
           <ion-icon slot="icon-only" name="contact"></ion-icon>
@@ -20,7 +22,7 @@
   </ion-header>
   <ion-split-pane>
     <ion-menu menuId="sidebar" class="sidebar">
-      <ion-header (click)="toggleSidebar()">
+      <ion-header>
         <ion-toolbar color="primary">
           <ion-title>
             <ion-icon name="menu" padding-right></ion-icon>
