@@ -33,12 +33,12 @@ export class AppComponent implements OnInit {
     },
     {
       title: 'Usuarios',
-      url: '/users',
+      url: '/users/menu',
       icon: 'people'
     },
     {
       title: 'Roles',
-      url: '/roles',
+      url: '/roles/menu',
       icon: 'person'
     },
     {
@@ -98,7 +98,8 @@ export class AppComponent implements OnInit {
       /* Check for Authenticated user */
       this.authenticationService.authenticationState.subscribe(state => {
         if (state) {
-          this.router.navigate(['users']).then(sucess => {
+          this.router.navigate(['home']).then(sucess => {
+            this.currentRoute = this.appPages[0].title;
             this.showMainHeader = true;
             this.menu.enable(true, 'sidebar');
           });
@@ -123,8 +124,10 @@ export class AppComponent implements OnInit {
         this.loginService
           .get_logout(accessToken)
           .subscribe((data: HttpResponse<ResponseLogout>) => {
-            this.authenticationService.logout();
-            console.log(data.body.data.msg);
+            this.authenticationService.logout().then(success => {
+              this.router.navigate(['login']);
+            });
+            console.log(data);
           });
       });
     }

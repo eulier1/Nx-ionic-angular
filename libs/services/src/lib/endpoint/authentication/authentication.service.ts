@@ -38,7 +38,7 @@ export class AuthenticationService {
   }
 
   isAuthenticated() {
-    return this.authenticationState.value;
+    return this.authenticationState.getValue();
   }
 
   getCurrentToken(): Promise<string> {

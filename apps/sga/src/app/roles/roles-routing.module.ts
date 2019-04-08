@@ -16,6 +16,14 @@ const routes: Routes = [
   {
     path: 'store/:id',
     component: UpdateComponent
+  },
+  {
+    path: 'list',
+    component: RolesComponent
+  },
+  {
+    path: 'menu',
+    component: RolesComponent
   }
 ];
 

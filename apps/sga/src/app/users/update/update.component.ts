@@ -39,7 +39,7 @@ export class UpdateComponent implements OnInit {
   title = 'Actualizar Usuario';
   apiEndpoint = COLLECTIONS.find(collection => collection.name === 'Users')
     .name;
-  redirectTo = 'users';
+  redirectTo = 'users/list';
   routePath = '/users';
   customValidators: {
     name: string;

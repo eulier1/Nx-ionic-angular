@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { UserModel, RolModel } from '@suite/services';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -63,7 +63,8 @@ export class UpdateComponent implements OnInit {
     private toastController: ToastController,
     private route: ActivatedRoute,
     private router: Router,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private zone: NgZone
   ) {}
 
   ngOnInit() {
@@ -90,7 +91,7 @@ export class UpdateComponent implements OnInit {
   }
 
   goToList() {
-    this.router.navigate([`${this.redirectTo}`]);
+    this.zone.runTask(() => this.router.navigate([`${this.redirectTo}`]));
   }
 
   getUser() {
@@ -177,8 +178,8 @@ export class UpdateComponent implements OnInit {
               res: HttpResponse<UserModel.ResponseStore | RolModel.ResponseShow>
             ) => {
               this.dismissLoading();
-              this.router.navigate([this.redirectTo]);
-              this.presentToast(`Usuario ${res.body.data.name} creado`);
+              this.zone.runTask(() => this.router.navigate([this.redirectTo]));
+              this.presentToast(`Usuario ${res.body.data.name} actualizado`);
             },
             (errorResponse: HttpErrorResponse) => {
               this.dismissLoading();

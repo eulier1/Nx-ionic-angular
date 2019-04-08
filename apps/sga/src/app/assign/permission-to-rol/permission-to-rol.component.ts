@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 import { MatSelectionListChange, MatListOption } from '@angular/material/list';
+import { mergeMap } from 'rxjs/operators';
 
 interface ShowRolPermissions extends PermissionsModel.Permission {
   selected?: boolean;
@@ -42,28 +43,27 @@ export class PermissionToRolComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.permissionService
-      .getIndex()
-      .then(
-        (data: Observable<HttpResponse<PermissionsModel.ResponseIndex>>) => {
-          data.subscribe(
-            (res: HttpResponse<PermissionsModel.ResponseIndex>) => {
-              this.permissions = res.body.data;
-              console.log(this.permissions);
-            }
-          );
-        }
-      );
-
-    this.rolesService
-      .getIndex()
-      .then((data: Observable<HttpResponse<RolModel.ResponseIndex>>) => {
-        data.subscribe((res: HttpResponse<RolModel.ResponseIndex>) => {
+    Promise.all([
+      this.permissionService.getIndex(),
+      this.rolesService.getIndex()
+    ]).then(
+      (data: any) => {
+        data[0].subscribe(
+          (res: HttpResponse<PermissionsModel.ResponseIndex>) => {
+            this.permissions = res.body.data;
+            console.log(this.permissions);
+          }
+        );
+        data[1].subscribe((res: HttpResponse<RolModel.ResponseIndex>) => {
           this.roles = res.body.data;
           this.rolepermissionsSelected = this.roles;
           console.log(this.roles);
         });
-      });
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   showRolPermissions(rolId: number) {

@@ -11,7 +11,7 @@ import { AuthenticationService } from '@suite/services';
 
 import { UserModel, RolModel } from '@suite/services';
 import { PATH } from '../../../../../../../config/base';
-import { concat } from 'rxjs';
+import { concat, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

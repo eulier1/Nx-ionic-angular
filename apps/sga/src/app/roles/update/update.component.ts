@@ -35,7 +35,7 @@ export class UpdateComponent implements OnInit {
   title = 'Actualizar Rol';
   apiEndpoint = COLLECTIONS.find(collection => collection.name === 'Roles')
     .name;
-  redirectTo = '/roles';
+  redirectTo = '/roles/list';
 
   constructor() {}
 

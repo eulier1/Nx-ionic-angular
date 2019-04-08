@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { UserModel, RolModel } from '@suite/services';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -50,7 +50,8 @@ export class StoreComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toastController: ToastController,
     private router: Router,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private zone: NgZone
   ) {}
 
   ngOnInit() {
@@ -77,7 +78,7 @@ export class StoreComponent implements OnInit {
   }
 
   goToList() {
-    this.router.navigate([`${this.redirectTo}`]);
+    this.zone.runTask(() => this.router.navigate([this.redirectTo]));
   }
 
   onSubmit() {
@@ -98,7 +99,7 @@ export class StoreComponent implements OnInit {
         data.subscribe(
           (res: HttpResponse<UserModel.ResponseStore>) => {
             this.dismissLoading();
-            this.router.navigate([this.redirectTo]);
+            this.zone.run(() => this.router.navigate([this.redirectTo]));
             this.presentToast(`Usuario ${res.body.data.name} creado`);
           },
           (errorResponse: HttpErrorResponse) => {

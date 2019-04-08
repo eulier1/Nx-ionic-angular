@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import {
   trigger,
   state,
@@ -10,10 +10,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material';
 import { UserModel, RolModel } from '@suite/services';
 import { CrudService } from '../service/crud.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, last, take, distinctUntilChanged } from 'rxjs/operators';
 import {
   AlertController,
   ToastController,
@@ -49,7 +49,7 @@ export class ListComponent implements OnInit {
     console.log('LIST COMPONENT');
     // Create a new Observable that publishes only the NavigationStart event
     this.navStart = router.events.pipe(
-      filter(evt => evt instanceof NavigationEnd)
+      filter(evt => evt instanceof NavigationStart)
     ) as Observable<NavigationEnd>;
   }
 
@@ -70,13 +70,6 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     this.initUsers();
-    this.navStart.subscribe(evt => {
-      console.log(evt);
-      if (evt.url === this.routePath) {
-        this.initUsers();
-        this.routerTo = `${this.routePath}/store`;
-      }
-    });
   }
 
   initUsers() {
