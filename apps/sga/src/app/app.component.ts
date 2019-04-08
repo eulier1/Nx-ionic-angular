@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  Router,
-  NavigationStart,
-  ResolveStart,
-  ResolveEnd
-} from '@angular/router';
-import { Observable } from 'rxjs/internal/Observable';
+import { Router, NavigationEnd } from '@angular/router';
 
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -57,10 +51,6 @@ export class AppComponent implements OnInit {
     }
   ];
 
-  navStart: Observable<NavigationStart>;
-  navResStart: Observable<ResolveStart>;
-  navResEnd: Observable<ResolveEnd>;
-
   // Presentation layer
   showMainHeader = false;
   showSidebar = false;
@@ -99,7 +89,6 @@ export class AppComponent implements OnInit {
       this.authenticationService.authenticationState.subscribe(state => {
         if (state) {
           this.router.navigate(['home']).then(sucess => {
-            this.currentRoute = this.appPages[0].title;
             this.showMainHeader = true;
             this.menu.enable(true, 'sidebar');
           });
@@ -107,6 +96,19 @@ export class AppComponent implements OnInit {
           this.menu.enable(false, 'sidebar');
           this.showMainHeader = false;
           this.router.navigate(['login']);
+        }
+      });
+
+      /* Update to display current route on Access Denied from Server */
+
+      this.router.events.subscribe(ev => {
+        if (ev instanceof NavigationEnd) {
+          console.log(ev.url);
+          this.appPages.map((page, i) =>
+            page.url === ev.url
+              ? (this.currentRoute = this.appPages[i].title)
+              : null
+          );
         }
       });
     });
@@ -141,13 +143,15 @@ export class AppComponent implements OnInit {
   }
 
   onResize(event) {
-    event.target.innerWidth < 992
-      ? ((this.deploySidebarSmallDevices = true),
-        (this.displaySmallSidebar = true),
-        (this.iconsDirection = 'start'))
-      : ((this.deploySidebarSmallDevices = false),
-        (this.displaySmallSidebar = true),
-        (this.iconsDirection = 'end'));
+    if (event.target.innerWidth < 992) {
+      this.deploySidebarSmallDevices = true;
+      this.displaySmallSidebar = true;
+      this.iconsDirection = 'start';
+    } else {
+      this.deploySidebarSmallDevices = false;
+      this.displaySmallSidebar = true;
+      this.iconsDirection = 'end';
+    }
   }
 
   toggleSidebarSmallDevices() {
